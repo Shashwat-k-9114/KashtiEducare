@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette, sampled from logo.jpeg */
+  --kashti-green: #128b62;
+  --kashti-green-soft: #1aa876;
+  --kashti-gold: #eeb250;
+  --kashti-gold-soft: #f4c878;
+  --kashti-charcoal: #454545;
+  --kashti-bg-light: #fdfdfd;
+  --kashti-bg-dark: #0b0e0c;
+  --kashti-coral: #e8664f;
+  --kashti-teal: #2d9c8f;
+
+  /* Derived, not new: light-theme surfaces and text-safe accent shades,
+     all computed from the tokens above via color-mix so no new hex is
+     introduced. -deep variants exist because the raw accents (gold in
+     particular) fail WCAG AA when used as text/icon color on a light
+     surface. See the light-theme conversion notes in each component. */
+  --kashti-bg-tint: color-mix(in srgb, var(--kashti-green) 5%, var(--kashti-bg-light));
+  --kashti-statement-bg: color-mix(in srgb, var(--kashti-green) 55%, black 45%);
+  --kashti-border-light: color-mix(in srgb, var(--kashti-charcoal) 15%, var(--kashti-bg-light));
+  --kashti-gold-deep: color-mix(in srgb, var(--kashti-gold) 40%, var(--kashti-charcoal) 60%);
+  --kashti-teal-deep: color-mix(in srgb, var(--kashti-teal) 40%, var(--kashti-charcoal) 60%);
+  --kashti-coral-deep: color-mix(in srgb, var(--kashti-coral) 40%, var(--kashti-charcoal) 60%);
+  --kashti-green-deep: color-mix(in srgb, var(--kashti-green) 90%, var(--kashti-charcoal) 10%);
+
+  --background: var(--kashti-bg-light);
+  --foreground: var(--kashti-charcoal);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-kashti-green: var(--kashti-green);
+  --color-kashti-green-soft: var(--kashti-green-soft);
+  --color-kashti-green-deep: var(--kashti-green-deep);
+  --color-kashti-gold: var(--kashti-gold);
+  --color-kashti-gold-soft: var(--kashti-gold-soft);
+  --color-kashti-gold-deep: var(--kashti-gold-deep);
+  --color-kashti-charcoal: var(--kashti-charcoal);
+  --color-kashti-bg-light: var(--kashti-bg-light);
+  --color-kashti-bg-tint: var(--kashti-bg-tint);
+  --color-kashti-bg-dark: var(--kashti-bg-dark);
+  --color-kashti-statement-bg: var(--kashti-statement-bg);
+  --color-kashti-border-light: var(--kashti-border-light);
+  --color-kashti-coral: var(--kashti-coral);
+  --color-kashti-coral-deep: var(--kashti-coral-deep);
+  --color-kashti-teal: var(--kashti-teal);
+  --color-kashti-teal-deep: var(--kashti-teal-deep);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+.font-mono-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* Hand-drawn wake/current line motif used as a section divider */
+.wake-divider {
+  display: block;
+  width: 100%;
+  height: 28px;
+}
