@@ -1,3 +1,5 @@
+"use client";
+
 import { Calendar } from "lucide-react";
 
 import { accentDeepVar, accentVar, accentTint, type Accent } from "./AccentCard";
