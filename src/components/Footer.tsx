@@ -3,15 +3,17 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Reveal, StaggerGrid, StaggerItem, tapHover } from "./motion";
 
 const exploreLinks = [
-  { label: "Why Kashti", href: "#impact" },
-  { label: "Experiences", href: "#experience-model" },
-  { label: "Formats", href: "#formats" },
-  { label: "Institutions", href: "#ecosystem" },
-  { label: "Partners", href: "#ecosystem" },
+  { label: "Why Kashti", href: "/why-kashti" },
+  { label: "Programs", href: "/programs" },
+  { label: "Experiences", href: "/experiences" },
+  { label: "Formats", href: "/formats" },
+  { label: "Institutions", href: "/institutions" },
+  { label: "Partners", href: "/partners" },
 ];
 
 export function Footer() {
@@ -22,7 +24,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl">
         <StaggerGrid className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
           <StaggerItem>
-            <a href="#top" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/logo.jpeg"
                 alt="Kashti Educare"
@@ -34,7 +36,7 @@ export function Footer() {
                 Kashti<span className="text-kashti-gold">.</span>{" "}
                 <span className="text-sm font-normal text-white/50">educare</span>
               </span>
-            </a>
+            </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
               Preparing learners for the world beyond the classroom: real
               world, real learning, real impact.
@@ -48,12 +50,12 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               {exploreLinks.map((link) => (
                 <li key={link.label}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-white/60 transition-colors hover:text-kashti-gold"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -74,17 +76,26 @@ export function Footer() {
               Get in touch
             </h4>
             <ul className="mt-4 space-y-3 text-sm text-white/60">
-              <li className="flex items-center gap-2">
-                <Mail size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
-                hello@kashtieducare.com
+              <li>
+                <a href="mailto:hello@kashtieducare.com" className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
+                  <Mail size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
+                  hello@kashtieducare.com
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
-                +91 00000 00000
+              <li>
+                <a href="tel:+910000000000" className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
+                  <Phone size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
+                  +91 00000 00000
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
                 India
+              </li>
+              <li>
+                <Link href="/contact" className="text-kashti-gold-soft transition-colors hover:text-kashti-gold">
+                  Contact form →
+                </Link>
               </li>
             </ul>
           </StaggerItem>
@@ -95,7 +106,7 @@ export function Footer() {
             © {new Date().getFullYear()} Kashti Educare. All rights reserved.
           </p>
           <motion.a
-            href="#formats"
+            href="/contact?intent=design-experience"
             {...tapHover}
             className="group inline-flex items-center gap-1.5 rounded-full bg-kashti-gold px-5 py-2 text-xs font-semibold text-kashti-charcoal shadow-[0_4px_16px_-4px_rgba(238,178,80,0.5)]"
           >

@@ -69,7 +69,7 @@ export function Hero() {
 
         <motion.div variants={item} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <motion.a
-            href="#formats"
+            href="/contact?intent=design-experience"
             {...tapHover}
             className="group flex w-full items-center justify-center gap-2 rounded-full bg-kashti-green px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-kashti-green-soft sm:w-auto"
           >
@@ -77,7 +77,7 @@ export function Hero() {
             <ArrowRight size={16} strokeWidth={2.25} className="transition-transform duration-200 group-hover:translate-x-1" />
           </motion.a>
           <motion.a
-            href="#formats"
+            href="/programs"
             {...tapHover}
             className="w-full rounded-full border border-kashti-green px-7 py-3 text-sm font-semibold text-kashti-green transition-colors hover:bg-kashti-green/5 sm:w-auto"
           >
