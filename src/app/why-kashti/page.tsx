@@ -5,12 +5,14 @@ import { ArrowRight, Compass } from "lucide-react";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { ImpactSection } from "@/components/ImpactSection";
 import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Why Kashti | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Why Kashti",
   description:
     "We connect learners with people, institutions, industries and ideas shaping the real world, through meaningful, transformative experiences.",
-};
+  path: "/why-kashti",
+});
 
 const principles = [
   {

@@ -4,13 +4,10 @@ import { BookOpen, Sparkles, Rocket, FileText, Trophy, Link2 } from "lucide-reac
 
 import { AccentCard, type Accent } from "./AccentCard";
 import { AnimatedCounter } from "./AnimatedCounter";
+import { LogoMarquee } from "./LogoMarquee";
+import { NepAlignmentBanner } from "./NepAlignmentBanner";
 import { Reveal, StaggerGrid, StaggerItem } from "./motion";
-
-const stats = [
-  { value: 5000, label: "Learners Reached" },
-  { value: 100, label: "Institutions Engaged" },
-  { value: 500, label: "Experiential Programs" },
-];
+import { siteConfig } from "@/lib/seo";
 
 const cards: Array<{
   icon: typeof BookOpen;
@@ -63,7 +60,7 @@ export function ImpactSection() {
         <div className="text-center">
           <Reveal>
             <h2 className="font-display text-3xl font-semibold text-kashti-charcoal sm:text-4xl">
-              Our <span className="text-kashti-gold-deep">Impact</span>
+              Our <span className="text-kashti-gold-deep">Reach</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
@@ -74,14 +71,14 @@ export function ImpactSection() {
         </div>
 
         <StaggerGrid
-          className="mx-auto mt-12 grid max-w-3xl grid-cols-1 gap-8 text-center sm:grid-cols-3"
+          className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-8 text-center lg:grid-cols-4"
           stagger={0.12}
           delayChildren={0.1}
         >
-          {stats.map((stat) => (
+          {siteConfig.stats.map((stat) => (
             <StaggerItem key={stat.label}>
               <p className="font-display text-4xl font-bold text-kashti-gold-deep sm:text-5xl">
-                <AnimatedCounter value={stat.value} suffix="+" />
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
               <p className="font-mono-label mt-2 text-xs tracking-wide text-kashti-charcoal/55 uppercase">
                 {stat.label}
@@ -95,6 +92,14 @@ export function ImpactSection() {
             <AccentCard key={card.title} {...card} />
           ))}
         </StaggerGrid>
+
+        <Reveal delay={0.15} className="mt-16">
+          <LogoMarquee />
+        </Reveal>
+
+        <div className="mt-10">
+          <NepAlignmentBanner />
+        </div>
       </div>
     </section>
   );

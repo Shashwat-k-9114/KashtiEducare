@@ -5,11 +5,13 @@ import { PageHeader } from "@/components/programs/PageHeader";
 import { LearningEcosystem } from "@/components/LearningEcosystem";
 import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
 import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Institutions | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Institutions",
   description: "The people and organisations behind Kashti's learning ecosystem — our Education & Experience Council.",
-};
+  path: "/institutions",
+});
 
 /**
  * Structural placeholder — describes what each group in the Council does,

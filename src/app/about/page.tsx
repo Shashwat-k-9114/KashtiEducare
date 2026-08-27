@@ -5,11 +5,13 @@ import { ArrowRight, Eye, Sun, Wrench } from "lucide-react";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
 import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "About",
   description: "Kashti Educare is building the experience layer between education and the real world.",
-};
+  path: "/about",
+});
 
 const outcomeJourney: { step: string; title: string; description: string; accent: Accent; icon: typeof Eye }[] = [
   { step: "01", title: "See", description: "Learners encounter real environments, industries, institutions, experts, and ideas.", accent: "gold", icon: Eye },

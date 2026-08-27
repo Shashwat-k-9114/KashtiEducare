@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Reveal, StaggerGrid, StaggerItem, tapHover } from "./motion";
+import { siteConfig } from "@/lib/seo";
 
 const exploreLinks = [
   { label: "Why Kashti", href: "/why-kashti" },
@@ -14,6 +15,7 @@ const exploreLinks = [
   { label: "Formats", href: "/formats" },
   { label: "Institutions", href: "/institutions" },
   { label: "Partners", href: "/partners" },
+  { label: "Gallery", href: "/gallery" },
 ];
 
 export function Footer() {
@@ -77,20 +79,20 @@ export function Footer() {
             </h4>
             <ul className="mt-4 space-y-3 text-sm text-white/60">
               <li>
-                <a href="mailto:hello@kashtieducare.com" className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
+                <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
                   <Mail size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
-                  hello@kashtieducare.com
+                  {siteConfig.contact.email}
                 </a>
               </li>
               <li>
-                <a href="tel:+910000000000" className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
+                <a href={`tel:${siteConfig.contact.phoneE164}`} className="flex items-center gap-2 transition-colors hover:text-kashti-gold">
                   <Phone size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
-                  +91 00000 00000
+                  {siteConfig.contact.phone}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin size={16} className="text-kashti-green-soft" strokeWidth={1.75} />
-                India
+                {siteConfig.contact.location}
               </li>
               <li>
                 <Link href="/contact" className="text-kashti-gold-soft transition-colors hover:text-kashti-gold">

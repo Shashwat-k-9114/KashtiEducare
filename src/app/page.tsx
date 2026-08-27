@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { NoticeBoard } from "@/components/NoticeBoard";
+import { GalleryTeaser } from "@/components/GalleryTeaser";
 import { ImpactSection } from "@/components/ImpactSection";
 import { StatementBanner } from "@/components/StatementBanner";
 import { HowWeDeliver } from "@/components/HowWeDeliver";
@@ -13,6 +14,7 @@ export default function Home() {
     <>
       <Hero />
       <NoticeBoard />
+      <GalleryTeaser />
       <ImpactSection />
       <SectionLink href="/why-kashti" label="More on why Kashti" />
       <StatementBanner />

@@ -5,11 +5,13 @@ import { ArrowRight, Factory, GraduationCap, Globe, Landmark, Rocket, Users } fr
 import { PageHeader } from "@/components/programs/PageHeader";
 import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
 import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Partners | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Partners",
   description: "Industries, universities, government bodies, communities and startups that make up the Kashti partner network.",
-};
+  path: "/partners",
+});
 
 const partnerTypes: { title: string; description: string; accent: Accent; icon: typeof Factory }[] = [
   {

@@ -5,11 +5,13 @@ import { PageHeader } from "@/components/programs/PageHeader";
 import { ProgramFormats } from "@/components/ProgramFormats";
 import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
 import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Formats | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Formats",
   description: "Flexible by design — from a single orientation session to a year-long institutional engagement.",
-};
+  path: "/formats",
+});
 
 const formatDetails: {
   duration: string;

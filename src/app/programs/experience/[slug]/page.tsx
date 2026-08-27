@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 
-import { Reveal } from "@/components/motion";
+import { Reveal, StaggerGrid } from "@/components/motion";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { MetadataStrip } from "@/components/programs/MetadataStrip";
 import { FaqAccordion } from "@/components/programs/FaqAccordion";
 import { FeaturedExperiences } from "@/components/programs/FeaturedExperiences";
-import { getProgrammeBySlug, programmes } from "@/data/programs";
+import { ProgrammeCard } from "@/components/programs/ProgrammeCard";
+import { EnquireNowButton } from "@/components/EnquireNowButton";
+import { JsonLd } from "@/components/JsonLd";
+import { getProgrammeBySlug, getRelatedProgrammes, programmes } from "@/data/programs";
+import { breadcrumbJsonLd, courseJsonLd, faqPageJsonLd } from "@/lib/jsonld";
+import { buildMetadata, programmeMetaDescription, shortHook } from "@/lib/seo";
 
 export function generateStaticParams() {
   return programmes.map((programme) => ({ slug: programme.slug }));
@@ -18,10 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const programme = getProgrammeBySlug(slug);
   if (!programme) return {};
-  return {
-    title: `${programme.title} | Kashti Educare`,
-    description: programme.description,
-  };
+  return buildMetadata({
+    title: `${programme.title} — ${shortHook(programme.description)}`,
+    description: programmeMetaDescription(programme),
+    path: `/programs/experience/${programme.slug}`,
+  });
 }
 
 export default async function ProgrammeDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -31,9 +35,20 @@ export default async function ProgrammeDetailPage({ params }: { params: Promise<
 
   const audienceLabel = programme.audience === "school" ? "School Programs" : "Higher Education Programs";
   const audienceHref = programme.audience === "school" ? "/programs/school" : "/programs/higher-education";
+  const relatedProgrammes = getRelatedProgrammes(programme);
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Programs", path: "/programs" },
+          { name: audienceLabel, path: audienceHref },
+          { name: programme.title, path: `/programs/experience/${programme.slug}` },
+        ])}
+      />
+      <JsonLd data={courseJsonLd(programme)} />
+      <JsonLd data={faqPageJsonLd(programme.faqs)} />
+
       <PageHeader
           eyebrow={audienceLabel}
           title={programme.title}
@@ -96,7 +111,28 @@ export default async function ProgrammeDetailPage({ params }: { params: Promise<
           </div>
         </section>
 
-        <section className="bg-kashti-bg-light px-6 py-16 text-center lg:px-10 lg:py-20">
+        {relatedProgrammes.length > 0 ? (
+          <section className="bg-kashti-bg-light px-6 py-16 lg:px-10 lg:py-20">
+            <div className="mx-auto max-w-5xl">
+              <div className="text-center">
+                <Reveal>
+                  <h2 className="font-display text-2xl font-semibold text-kashti-charcoal sm:text-3xl">
+                    Related <span className="text-kashti-gold-deep">Programmes</span>
+                  </h2>
+                </Reveal>
+              </div>
+              <Reveal delay={0.08} className="mt-10">
+                <StaggerGrid className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+                  {relatedProgrammes.map((related, index) => (
+                    <ProgrammeCard key={related.slug} programme={related} index={index} />
+                  ))}
+                </StaggerGrid>
+              </Reveal>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="bg-kashti-bg-tint px-6 py-16 text-center lg:px-10 lg:py-20">
           <Reveal>
             <h2 className="font-display text-2xl font-semibold text-kashti-charcoal sm:text-3xl">
               Ready to bring this to your institution?
@@ -108,13 +144,7 @@ export default async function ProgrammeDetailPage({ params }: { params: Promise<
             </p>
           </Reveal>
           <Reveal delay={0.14}>
-            <Link
-              href={`/contact?program=${encodeURIComponent(programme.title)}`}
-              className="group mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-kashti-gold px-7 py-3 text-sm font-semibold text-kashti-charcoal shadow-[0_4px_16px_-4px_rgba(238,178,80,0.5)]"
-            >
-              Enquire Now
-              <ArrowRight size={16} strokeWidth={2.25} className="transition-transform duration-200 group-hover:translate-x-1" />
-            </Link>
+            <EnquireNowButton programmeTitle={programme.title} />
           </Reveal>
         </section>
     </>

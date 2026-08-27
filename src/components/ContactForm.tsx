@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 
 import { easeOutExpo } from "@/components/motion";
 import { contactIntents, type ContactIntent } from "@/data/contact";
+import { trackEvent } from "@/lib/analytics";
 
 type FormState = {
   intent: ContactIntent | "";
@@ -15,6 +16,10 @@ type FormState = {
   phone: string;
   programme: string;
   message: string;
+  // Honeypot: real visitors never see or fill this field (hidden via CSS,
+  // not `type="hidden"`, since some bots skip truly hidden inputs but
+  // still fill anything present in the DOM). Any value here means a bot.
+  website: string;
 };
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
@@ -47,6 +52,7 @@ export function ContactForm({ defaultProgramme = "", defaultIntent = "" }: { def
     phone: "",
     programme: defaultProgramme,
     message: defaultProgramme ? `Hi Kashti team, I'd like to know more about ${defaultProgramme}.` : "",
+    website: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -58,16 +64,52 @@ export function ContactForm({ defaultProgramme = "", defaultIntent = "" }: { def
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    // Honeypot: a bot that fills every field (including the hidden one)
+    // gets silently "succeeded" rather than told why, so it doesn't learn
+    // to leave the field blank next time.
+    if (state.website.trim().length > 0) {
+      setStatus("success");
+      return;
+    }
+
     const nextErrors = validate(state);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
+    const endpoint = process.env.NEXT_PUBLIC_ENQUIRY_FORM_ENDPOINT;
+    if (!endpoint) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     try {
-      // TODO: wire up real delivery (email/CRM webhook) once a provider is chosen.
-      // Simulated network round-trip so the loading/success states are real, not instant.
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const response = await fetch(endpoint, {
+        method: "POST",
+        // text/plain avoids a CORS preflight OPTIONS request against the
+        // Apps Script Web App, which doesn't handle preflight the way a
+        // normal API does. The script still JSON.parse()s the body.
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          intent: state.intent,
+          name: state.name.trim(),
+          email: state.email.trim(),
+          phone: state.phone.trim(),
+          institution: state.organisation.trim(),
+          programmeName: state.programme.trim(),
+          message: state.message.trim(),
+        }),
+      });
+
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.status !== "ok") throw new Error(result?.message ?? "Submission failed");
+
       setStatus("success");
+      trackEvent("contact_form_submit", {
+        intent: state.intent,
+        programme: state.programme || "(none)",
+      });
     } catch {
       setStatus("error");
     }
@@ -92,7 +134,7 @@ export function ContactForm({ defaultProgramme = "", defaultIntent = "" }: { def
         <button
           type="button"
           onClick={() => {
-            setState({ intent: "", name: "", organisation: "", email: "", phone: "", programme: "", message: "" });
+            setState({ intent: "", name: "", organisation: "", email: "", phone: "", programme: "", message: "", website: "" });
             setStatus("idle");
           }}
           className="font-mono-label mt-6 text-xs font-semibold tracking-wide text-kashti-green-deep uppercase"
@@ -214,6 +256,19 @@ export function ContactForm({ defaultProgramme = "", defaultIntent = "" }: { def
           placeholder="Tell us about your institution, group size, and what you're looking for."
         />
         {errors.message ? <FieldError message={errors.message} /> : null}
+      </div>
+
+      {/* Honeypot — hidden from sighted users and excluded from tab order, but present in the DOM for bots that fill every field blindly. */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={state.website}
+          onChange={(e) => setField("website", e.target.value)}
+        />
       </div>
 
       {status === "error" ? (

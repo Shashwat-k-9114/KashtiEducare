@@ -1933,3 +1933,36 @@ export function getPortfolioCategoryAudienceLabel(slug: PortfolioCategorySlug): 
   if (hasHigherEd) return "Higher Education";
   return "All Institutions";
 }
+
+/**
+ * 2-3 programmes to link to from a programme detail page's "related
+ * programmes" section — same higher-ed category first (tightest match),
+ * then shared Portfolio category tags, then same audience as a fallback,
+ * so every programme always has something to link sideways to.
+ */
+export function getRelatedProgrammes(programme: Programme, limit = 3): Programme[] {
+  const related = new Map<string, Programme>();
+
+  const addAll = (candidates: Programme[]) => {
+    for (const candidate of candidates) {
+      if (candidate.slug === programme.slug || related.has(candidate.slug)) continue;
+      related.set(candidate.slug, candidate);
+      if (related.size >= limit) return;
+    }
+  };
+
+  if (programme.higherEdCategory) {
+    addAll(getProgrammesByHigherEdCategory(programme.higherEdCategory));
+  }
+  if (related.size < limit) {
+    for (const categorySlug of programme.portfolioCategories) {
+      addAll(getProgrammesByPortfolioCategory(categorySlug));
+      if (related.size >= limit) break;
+    }
+  }
+  if (related.size < limit) {
+    addAll(programmes.filter((p) => p.audience === programme.audience));
+  }
+
+  return [...related.values()].slice(0, limit);
+}

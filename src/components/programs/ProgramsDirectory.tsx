@@ -12,6 +12,7 @@ import {
   type ProgramFormat,
   type Programme,
 } from "@/data/programs";
+import { trackEvent } from "@/lib/analytics";
 
 import { ProgrammeCard } from "./ProgrammeCard";
 
@@ -76,7 +77,14 @@ export function ProgramsDirectory({
         >
           <FilterGroup label="I'm looking for">
             {audienceOptions.map((opt) => (
-              <FilterPill key={opt.value} active={audience.set.has(opt.value)} onClick={() => audience.toggle(opt.value)}>
+              <FilterPill
+                key={opt.value}
+                active={audience.set.has(opt.value)}
+                onClick={() => {
+                  audience.toggle(opt.value);
+                  trackEvent("filter_programs", { filter_type: "audience", value: opt.value });
+                }}
+              >
                 {opt.label}
               </FilterPill>
             ))}
@@ -84,7 +92,14 @@ export function ProgramsDirectory({
 
           <FilterGroup label="Interested in">
             {portfolioCategories.map((cat) => (
-              <FilterPill key={cat.slug} active={interest.set.has(cat.slug)} onClick={() => interest.toggle(cat.slug)}>
+              <FilterPill
+                key={cat.slug}
+                active={interest.set.has(cat.slug)}
+                onClick={() => {
+                  interest.toggle(cat.slug);
+                  trackEvent("filter_programs", { filter_type: "interest", value: cat.slug });
+                }}
+              >
                 {cat.title}
               </FilterPill>
             ))}
@@ -92,7 +107,14 @@ export function ProgramsDirectory({
 
           <FilterGroup label="Format">
             {formatOptions.map((f) => (
-              <FilterPill key={f} active={format.set.has(f)} onClick={() => format.toggle(f)}>
+              <FilterPill
+                key={f}
+                active={format.set.has(f)}
+                onClick={() => {
+                  format.toggle(f);
+                  trackEvent("filter_programs", { filter_type: "format", value: f });
+                }}
+              >
                 {formatLabels[f]}
               </FilterPill>
             ))}

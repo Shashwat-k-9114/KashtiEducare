@@ -3,17 +3,28 @@ import type { Metadata } from "next";
 import { StaggerGrid } from "@/components/motion";
 import { CategoryCard } from "@/components/programs/CategoryCard";
 import { PageHeader } from "@/components/programs/PageHeader";
+import { JsonLd } from "@/components/JsonLd";
 import { higherEdCategories } from "@/data/programs";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Higher Education Programs | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Higher Education Programs",
   description:
     "Seven categories covering the full Higher Education product portfolio — from academic & industry exposure to alumni and faculty programs.",
-};
+  path: "/programs/higher-education",
+});
 
 export default function HigherEducationProgramsPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Programs", path: "/programs" },
+          { name: "Higher Education", path: "/programs/higher-education" },
+        ])}
+      />
+
       <PageHeader
           eyebrow="Higher Education Programs"
           title="Built for Campus Life, End to End"

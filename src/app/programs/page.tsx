@@ -7,17 +7,23 @@ import { CategoryCard } from "@/components/programs/CategoryCard";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { ProgramsDirectory } from "@/components/programs/ProgramsDirectory";
 import { FaqAccordion } from "@/components/programs/FaqAccordion";
+import { JsonLd } from "@/components/JsonLd";
 import { portfolioCategories, programmes, siteFaq } from "@/data/programs";
+import { faqPageJsonLd } from "@/lib/jsonld";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Programs | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Programs",
   description:
     "Eight ways into the same real-world experience layer — browse the Kashti Portfolio by theme, or jump straight to School or Higher Education programmes.",
-};
+  path: "/programs",
+});
 
 export default function ProgramsPage() {
   return (
     <>
+      <JsonLd data={faqPageJsonLd(siteFaq)} />
+
       <PageHeader
           eyebrow="The Portfolio"
           title="Programs Built Around Every Learner"

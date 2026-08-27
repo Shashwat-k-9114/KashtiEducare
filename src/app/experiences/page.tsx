@@ -6,11 +6,13 @@ import { PageHeader } from "@/components/programs/PageHeader";
 import { HowWeDeliver } from "@/components/HowWeDeliver";
 import { ExperienceModel } from "@/components/ExperienceModel";
 import { Reveal } from "@/components/motion";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Experiences | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Experiences",
   description: "From orientation to transformation — how Kashti structures every experience, and what it builds in a learner.",
-};
+  path: "/experiences",
+});
 
 export default function ExperiencesPage() {
   return (

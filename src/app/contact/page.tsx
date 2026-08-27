@@ -5,16 +5,18 @@ import { PageHeader } from "@/components/programs/PageHeader";
 import { ContactForm } from "@/components/ContactForm";
 import { Reveal } from "@/components/motion";
 import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { buildMetadata, siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "Contact",
   description: "Tell us about your institution and what you're looking for — our team will get back with a customised proposal.",
-};
+  path: "/contact",
+});
 
 const infoCards: { icon: typeof Mail; accent: Accent; label: string; value: string; href: string }[] = [
-  { icon: Mail, accent: "gold", label: "Email", value: "hello@kashtieducare.com", href: "mailto:hello@kashtieducare.com" },
-  { icon: Phone, accent: "teal", label: "Phone", value: "+91 00000 00000", href: "tel:+910000000000" },
-  { icon: MapPin, accent: "coral", label: "Location", value: "India", href: "" },
+  { icon: Mail, accent: "gold", label: "Email", value: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+  { icon: Phone, accent: "teal", label: "Phone", value: siteConfig.contact.phone, href: `tel:${siteConfig.contact.phoneE164}` },
+  { icon: MapPin, accent: "coral", label: "Location", value: siteConfig.contact.location, href: "" },
 ];
 
 export default async function ContactPage({

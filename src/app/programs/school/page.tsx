@@ -3,18 +3,29 @@ import type { Metadata } from "next";
 import { StaggerGrid } from "@/components/motion";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { ProgrammeCard } from "@/components/programs/ProgrammeCard";
+import { JsonLd } from "@/components/JsonLd";
 import { getSchoolProgrammes } from "@/data/programs";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "School Programs | Kashti Educare",
+export const metadata: Metadata = buildMetadata({
+  title: "School Programs",
   description: "Twelve experiential programmes for school-age learners, from STEM tours to global immersion trips.",
-};
+  path: "/programs/school",
+});
 
 export default function SchoolProgramsPage() {
   const schoolProgrammes = getSchoolProgrammes();
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Programs", path: "/programs" },
+          { name: "School", path: "/programs/school" },
+        ])}
+      />
+
       <PageHeader
           eyebrow="School Programs"
           title="Real-World Learning for School Students"

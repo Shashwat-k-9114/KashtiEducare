@@ -4,7 +4,10 @@ import { notFound } from "next/navigation";
 import { StaggerGrid } from "@/components/motion";
 import { PageHeader } from "@/components/programs/PageHeader";
 import { ProgrammeCard } from "@/components/programs/ProgrammeCard";
+import { JsonLd } from "@/components/JsonLd";
 import { getPortfolioCategoryBySlug, getProgrammesByPortfolioCategory, portfolioCategories } from "@/data/programs";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return portfolioCategories.map((category) => ({ category: category.slug }));
@@ -14,10 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const { category: slug } = await params;
   const category = getPortfolioCategoryBySlug(slug);
   if (!category) return {};
-  return {
-    title: `${category.title} | Kashti Educare`,
+  return buildMetadata({
+    title: `${category.title} Programmes`,
     description: category.description,
-  };
+    path: `/programs/${category.slug}`,
+  });
 }
 
 export default async function PortfolioCategoryPage({ params }: { params: Promise<{ category: string }> }) {
@@ -29,6 +33,13 @@ export default async function PortfolioCategoryPage({ params }: { params: Promis
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Programs", path: "/programs" },
+          { name: category.title, path: `/programs/${category.slug}` },
+        ])}
+      />
+
       <PageHeader
           eyebrow="The Portfolio"
           title={category.title}
