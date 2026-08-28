@@ -3,10 +3,7 @@ import { Fraunces, Manrope, JetBrains_Mono } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 
-import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { ConsentBanner } from "@/components/ConsentBanner";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
@@ -68,12 +65,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         <GoogleAnalytics />
-        <MotionConfig reducedMotion="user">
-          <AnnouncementBanner />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </MotionConfig>
+        {/* Site chrome (announcement banner, Navbar, Footer) lives in
+            src/app/(site)/layout.tsx, not here — /connect and /admin/**
+            are deliberately bare (no marketing nav/footer): a QR-landing
+            page and an internal dashboard both want to be fast, minimal,
+            and mobile-first, not wrapped in the full 6-link site nav. */}
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
         <ConsentBanner />
       </body>
     </html>

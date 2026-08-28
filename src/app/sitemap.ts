@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/institutions"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: absoluteUrl("/partners"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: absoluteUrl("/gallery"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: absoluteUrl("/connect"), lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: now, changeFrequency: "yearly", priority: 0.5 },
   ];
 

@@ -121,6 +121,11 @@ export function AdvisorIntakeForm() {
           bio: state.bio.trim(),
           institutionLogo: logoBase64,
           personalPhoto: photoBase64,
+          // Always sent (empty string for real applicants) — see the same
+          // fix/note in ContactForm.tsx. advisorIntake.gs previously
+          // checked `data.website`, which was also never sent; both the
+          // wire field name and the server check are now `honeypot`.
+          honeypot: state.website.trim(),
         }),
       });
 

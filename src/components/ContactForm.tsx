@@ -99,6 +99,12 @@ export function ContactForm({ defaultProgramme = "", defaultIntent = "" }: { def
           institution: state.organisation.trim(),
           programmeName: state.programme.trim(),
           message: state.message.trim(),
+          // Always sent (empty string for real visitors) — the honeypot
+          // only works if the server actually receives this field. It was
+          // previously checked client-side only and never included in the
+          // request body, making enquiryForm.gs's `data.honeypot` check
+          // permanently dead code.
+          honeypot: state.website.trim(),
         }),
       });
 
