@@ -1,4 +1,18 @@
-import { Compass, Globe, GraduationCap, Info, Mail, Send } from "lucide-react";
+import {
+  BookOpen,
+  Calendar,
+  Compass,
+  FlaskConical,
+  Flag,
+  Globe,
+  Images,
+  Layers,
+  Mail,
+  Phone,
+  Rocket,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import type { SVGProps } from "react";
 
 import type { ConnectIconName } from "@/data/connect";
@@ -6,10 +20,9 @@ import type { ConnectIconName } from "@/data/connect";
 /**
  * lucide-react ships no brand/logo marks (its policy excludes trademarked
  * logos — no Instagram/LinkedIn/YouTube/Facebook/WhatsApp export). Rather
- * than add an icon-package dependency for five glyphs, these are small
- * hand-built SVGs in the same 24x24 / currentColor / stroke-first
- * convention as the lucide icons used elsewhere on the site, so they sit
- * visually consistent beside them.
+ * than add an icon-package dependency for a handful of glyphs, these are
+ * small hand-built SVGs in the same 24x24 / currentColor / stroke-first
+ * convention as the lucide icons used elsewhere on the site.
  */
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number; strokeWidth?: number };
@@ -84,15 +97,22 @@ type ConnectIcon = (props: IconProps) => React.ReactElement;
 
 /** Every `icon` value used in src/data/connect.ts resolves to a component here. */
 export const connectIconMap: Record<ConnectIconName, ConnectIcon> = {
-  website: Globe as ConnectIcon,
+  calendar: Calendar as ConnectIcon,
   whatsapp: WhatsAppIcon,
+  phone: Phone as ConnectIcon,
   email: Mail as ConnectIcon,
+  participation: Users as ConnectIcon,
+  exposure: Compass as ConnectIcon,
+  stem: FlaskConical as ConnectIcon,
+  leadership: Flag as ConnectIcon,
+  experiential: Layers as ConnectIcon,
+  rocket: Rocket as ConnectIcon,
+  magazine: BookOpen as ConnectIcon,
+  custom: Sparkles as ConnectIcon,
+  gallery: Images as ConnectIcon,
+  website: Globe as ConnectIcon,
   instagram: InstagramIcon,
   linkedin: LinkedInIcon,
   youtube: YouTubeIcon,
   facebook: FacebookIcon,
-  contact: Send as ConnectIcon,
-  programmes: GraduationCap as ConnectIcon,
-  about: Info as ConnectIcon,
-  "why-kashti": Compass as ConnectIcon,
 };
