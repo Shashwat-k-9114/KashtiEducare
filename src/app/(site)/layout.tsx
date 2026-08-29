@@ -6,8 +6,8 @@ import { Footer } from "@/components/Footer";
 
 /**
  * Shared chrome for every "marketing site" page — everything that was
- * previously in the root layout except /connect and /admin/**, which
- * sit outside this route group (see the comment in src/app/layout.tsx).
+ * previously in the root layout except /connect, which sits outside this
+ * route group (see the comment in src/app/layout.tsx).
  * `(site)` is a route group: it organizes files, not URLs — none of
  * these pages' paths change.
  */

@@ -66,10 +66,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={websiteJsonLd()} />
         <GoogleAnalytics />
         {/* Site chrome (announcement banner, Navbar, Footer) lives in
-            src/app/(site)/layout.tsx, not here — /connect and /admin/**
-            are deliberately bare (no marketing nav/footer): a QR-landing
-            page and an internal dashboard both want to be fast, minimal,
-            and mobile-first, not wrapped in the full 6-link site nav. */}
+            src/app/(site)/layout.tsx, not here — /connect is deliberately
+            bare (no marketing nav/footer): a QR-landing page wants to be
+            fast, minimal and mobile-first, not wrapped in the full 6-link
+            site nav. */}
         <MotionConfig reducedMotion="user">{children}</MotionConfig>
         <ConsentBanner />
       </body>

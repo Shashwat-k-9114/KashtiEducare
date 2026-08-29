@@ -1,70 +1,98 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 
-import { accentDeepVar, accentTint, accentVar, type Accent } from "@/components/AccentCard";
+import { accentDeepVar, accentTint, type Accent } from "@/components/AccentCard";
 import { tapHover } from "@/components/motion";
 import { connectIconMap } from "./BrandIcons";
-import type { ConnectLink } from "@/lib/connectValidation";
+import type { ConnectLink } from "@/data/connect";
 
-const CATEGORY_ACCENT: Record<string, Accent> = {
-  social: "coral",
-  contact: "green",
-  programme: "gold",
-  default: "teal",
-};
-
-function accentFor(category: string): Accent {
-  return CATEGORY_ACCENT[category] ?? CATEGORY_ACCENT.default;
+function anchorRel(link: ConnectLink) {
+  return link.external
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
 }
 
-export function LinkButton({ link }: { link: ConnectLink }) {
-  const searchParams = useSearchParams();
-  const Icon = connectIconMap[link.icon] ?? connectIconMap.link;
-  const accent = accentFor(link.category);
-
-  const track = () => {
-    try {
-      const campaign = searchParams.get("src") ?? "";
-      fetch("/api/connect/click", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ linkId: link.id, campaign }),
-        keepalive: true,
-      }).catch(() => {});
-    } catch {
-      // Tracking must never block or break navigation.
-    }
-  };
+/**
+ * Large, filled call-to-action button for the top of /connect. Big tap
+ * target (min 60px tall), high-contrast, one per row.
+ */
+export function PrimaryLink({ link, accent }: { link: ConnectLink; accent: Accent }) {
+  const Icon = connectIconMap[link.icon];
 
   return (
     <motion.a
-      href={link.url}
-      onClick={track}
-      target={link.url.startsWith("http") ? "_blank" : undefined}
-      rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+      href={link.href ?? "#"}
+      {...anchorRel(link)}
       {...tapHover}
-      className="flex items-center gap-4 rounded-xl border bg-kashti-bg-light p-4 shadow-[0_1px_2px_rgba(69,69,69,0.06)] transition-colors hover:border-kashti-green/40"
+      className="flex min-h-[60px] items-center gap-4 rounded-xl px-5 py-3.5 text-left shadow-[0_6px_20px_-8px_rgba(69,69,69,0.35)]"
+      style={{ backgroundColor: accentDeepVar[accent], color: "var(--kashti-bg-light)" }}
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15">
+        <Icon size={20} strokeWidth={1.9} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="font-display block text-base font-semibold">{link.label}</span>
+        {link.description ? (
+          <span className="block truncate text-xs text-white/85">{link.description}</span>
+        ) : null}
+      </span>
+      <ArrowUpRight size={18} strokeWidth={2} className="shrink-0 text-white/70" aria-hidden="true" />
+    </motion.a>
+  );
+}
+
+/**
+ * Bordered list tile — used for "useful destinations". Same visual
+ * language as the site's AccentCard rows.
+ */
+export function TileLink({ link, accent }: { link: ConnectLink; accent: Accent }) {
+  const Icon = connectIconMap[link.icon];
+
+  return (
+    <motion.a
+      href={link.href ?? "#"}
+      {...anchorRel(link)}
+      {...tapHover}
+      className="flex min-h-[60px] items-center gap-4 rounded-xl border bg-kashti-bg-light p-4 shadow-[0_1px_2px_rgba(69,69,69,0.06)] transition-colors hover:border-kashti-green/40"
       style={{ borderColor: "var(--kashti-border-light)" }}
     >
-      <div
+      <span
         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg"
         style={{ backgroundColor: accentTint[accent] }}
       >
         <Icon size={20} strokeWidth={1.75} style={{ color: accentDeepVar[accent] }} />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="font-display truncate text-base font-semibold text-kashti-charcoal">{link.name}</p>
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="font-display block text-base font-semibold text-kashti-charcoal">{link.label}</span>
         {link.description ? (
-          <p className="truncate text-sm text-kashti-charcoal/60">{link.description}</p>
+          <span className="block truncate text-sm text-kashti-charcoal/60">{link.description}</span>
         ) : null}
-      </div>
-      <div
-        className="h-2 w-2 shrink-0 rounded-full"
-        style={{ backgroundColor: accentVar[accent] }}
-        aria-hidden="true"
-      />
+      </span>
+      <ChevronRight size={18} strokeWidth={2} className="shrink-0 text-kashti-charcoal/30" aria-hidden="true" />
+    </motion.a>
+  );
+}
+
+/**
+ * Square icon button for the social row. 56px tap target with a visible
+ * accessible label (not a bare icon).
+ */
+export function SocialButton({ link }: { link: ConnectLink }) {
+  const Icon = connectIconMap[link.icon];
+
+  return (
+    <motion.a
+      href={link.href ?? "#"}
+      {...anchorRel(link)}
+      {...tapHover}
+      aria-label={link.label}
+      title={link.label}
+      className="flex h-14 w-14 items-center justify-center rounded-xl border bg-kashti-bg-light text-kashti-charcoal shadow-[0_1px_2px_rgba(69,69,69,0.06)] transition-colors hover:border-kashti-green/40 hover:text-kashti-green-deep"
+      style={{ borderColor: "var(--kashti-border-light)" }}
+    >
+      <Icon size={22} strokeWidth={1.75} />
     </motion.a>
   );
 }

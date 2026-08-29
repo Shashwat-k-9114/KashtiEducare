@@ -1,11 +1,12 @@
 // One-off generator for the permanent /connect QR code. Run with:
 //   node scripts/generate-qr.js
 //
-// Encodes the bare production URL — this QR never needs to change again;
-// all "dynamic" behavior comes from editing Links via /admin/connect,
-// not from regenerating this code. High error correction ('H') and a
-// generous quiet zone are prioritized over any branding/logo insertion,
-// per the requirement that scan reliability wins over aesthetics.
+// Encodes the bare production URL — this QR never needs to change again.
+// The /connect page is static and its links live in src/data/connect.ts;
+// editing them and redeploying never affects this code. High error
+// correction ('H') and a generous quiet zone are prioritized over any
+// branding/logo insertion, per the requirement that scan reliability
+// wins over aesthetics.
 
 const fs = require("fs");
 const path = require("path");
