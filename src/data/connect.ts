@@ -1,49 +1,21 @@
-import type { Accent } from "@/components/AccentCard";
 import type { ContactIntent } from "@/data/contact";
+import { galleryPhotos, type GalleryPhoto } from "@/data/media";
 import { siteConfig } from "@/lib/seo";
 
 /**
- * Single source of truth for the public /connect page.
+ * Single source of truth for the public /connect page — "The Charted
+ * Voyage".
  *
- * /connect is the digital second side of the Kashti Educare visiting card:
- * the printed card carries a QR that points here permanently
+ * /connect is the digital second side of the Kashti Educare visiting
+ * card: the printed card carries a QR that points here permanently
  * (https://kashtieducare.com/connect) instead of a wall of links. The
  * visitor is usually a school leader who has just met someone from Kashti.
  *
- * The page is fully static — every destination below is a real route,
- * asset, or a deep-link into the existing /contact enquiry flow. There is
- * no backend, database, API, admin or analytics. To change anything, edit
- * this file and redeploy.
- *
- * Icon names map to components in src/components/connect/BrandIcons.tsx.
+ * The page is fully static — every destination below is a real route, a
+ * real photo in /public, or a deep-link into the existing /contact
+ * enquiry flow. There is no backend, database, API, admin or analytics.
+ * To change anything, edit this file and redeploy.
  */
-
-export type ConnectIconName =
-  | "calendar"
-  | "whatsapp"
-  | "phone"
-  | "email"
-  | "participation"
-  | "exposure"
-  | "stem"
-  | "leadership"
-  | "experiential"
-  | "rocket"
-  | "magazine"
-  | "custom"
-  | "gallery"
-  | "website"
-  | "instagram"
-  | "linkedin"
-  | "youtube"
-  | "facebook";
-
-export type Cta = {
-  label: string;
-  href: string;
-  /** http(s) links open in a new tab; internal / mailto / tel links do not. */
-  external: boolean;
-};
 
 // --- Contact / messaging endpoints (all derived from src/lib/seo.ts) -------
 
@@ -66,112 +38,116 @@ export function contactUrl(topic: string, intent: ContactIntent = "school"): str
   return `/contact?${params.toString()}`;
 }
 
-// --- Section 1 — Hero / digital visiting card -----------------------------
+export type Cta = {
+  label: string;
+  href: string;
+  /** http(s) links open in a new tab; internal / mailto / tel links do not. */
+  external: boolean;
+};
+
+/** Pull a real gallery photo (with authoritative alt + dimensions) by filename. */
+function photo(file: string): GalleryPhoto {
+  const found = galleryPhotos.find((p) => p.src === `/images/gallery/${file}`);
+  if (!found) throw new Error(`connect.ts: gallery photo not found — ${file}`);
+  return found;
+}
+
+// --- The voyage — six stations the visitor moves through -----------------
+// Order is meaningful: the page is a single journey from "you scanned the
+// card" to "keep Kashti with you". The rail/waypoint system visualises it.
+
+export type Station = {
+  id: "departure" | "bearing" | "passage" | "sightings" | "hail" | "harbour";
+  /** Short chart label shown at the waypoint. */
+  name: string;
+  /** One-line description shown in the margin on wide screens. */
+  note: string;
+};
+
+export const journey: Station[] = [
+  { id: "departure", name: "Departure", note: "You scanned the card" },
+  { id: "bearing", name: "Bearing", note: "Choose a direction" },
+  { id: "passage", name: "Passage", note: "What Kashti can do" },
+  { id: "sightings", name: "Sightings", note: "Real experiences" },
+  { id: "hail", name: "Hail", note: "Open a conversation" },
+  { id: "harbour", name: "Harbour", note: "Keep Kashti with you" },
+];
+
+// --- Station 1 — Departure (hero) ---------------------------------------
 
 export const hero = {
   eyebrow: "Scan · Explore · Connect",
   heading: "Let’s Explore What’s Possible for Your Students",
-  supporting:
-    "Kashti Educare · Experiences that expand Exposure, Perspective & Resilience",
+  supporting: "Kashti Educare · Experiences that expand Exposure, Perspective & Resilience",
   actions: [
     {
       label: "Book a Discussion",
-      sublabel: "Talk to the Kashti team",
       href: contactUrl("scheduling a discussion about our students"),
-      icon: "calendar" as ConnectIconName,
       external: false,
       tone: "primary" as const,
     },
     {
       label: "WhatsApp",
-      sublabel: siteConfig.contact.phone,
       href: whatsappUrl,
-      icon: "whatsapp" as ConnectIconName,
       external: true,
       tone: "secondary" as const,
     },
   ],
 };
 
-// --- Section 2 — "What does your school need right now?" ------------------
-// Guided-discovery shortcuts. Each points at the closest real Kashti
-// destination so the page feels consultative, not like a link dump.
+// --- Station 2 — Bearing ("What does your school need right now?") ------
+// Five directions. Each steers to the closest real Kashti destination, so
+// the page feels consultative rather than like a link dump. `bearing` is a
+// decorative compass reading only (aria-hidden in the UI).
 
-export type NeedShortcut = {
+export type Direction = {
   label: string;
   href: string;
-  icon: ConnectIconName;
-  accent: Accent;
+  bearing: string;
+  icon: DirectionIcon;
 };
 
-export const needsHeading = "What Does Your School Need Right Now?";
+export type DirectionIcon = "participation" | "exposure" | "stem" | "leadership" | "experiential";
 
-export const needShortcuts: NeedShortcut[] = [
-  {
-    label: "More Student Participation",
-    href: "/programs/adventure-experiential-learning",
-    icon: "participation",
-    accent: "coral",
-  },
-  {
-    label: "Better Exposure",
-    href: "/programs/career-industry-exposure",
-    icon: "exposure",
-    accent: "green",
-  },
-  {
-    label: "STEM & Technology",
-    href: "/programs/future-stem-exploration",
-    icon: "stem",
-    accent: "teal",
-  },
-  {
-    label: "Leadership & Resilience",
-    href: "/programs/leadership-discipline-character",
-    icon: "leadership",
-    accent: "gold",
-  },
-  {
-    label: "Experiential Learning",
-    href: "/programs",
-    icon: "experiential",
-    accent: "teal",
-  },
+export const bearingHeading = "What Does Your School Need Right Now?";
+
+export const directions: Direction[] = [
+  { label: "More Student Participation", href: "/programs/adventure-experiential-learning", bearing: "015°", icon: "participation" },
+  { label: "Better Exposure", href: "/programs/career-industry-exposure", bearing: "084°", icon: "exposure" },
+  { label: "STEM & Technology", href: "/programs/future-stem-exploration", bearing: "153°", icon: "stem" },
+  { label: "Leadership & Resilience", href: "/programs/leadership-discipline-character", bearing: "222°", icon: "leadership" },
+  { label: "Experiential Learning", href: "/programs", bearing: "291°", icon: "experiential" },
 ];
 
-// --- Section 3 — Primary offerings (numbered 01–04) ----------------------
+// --- Station 3 — Passage (primary offerings, four legs) ----------------
 
-export type Offering = {
-  number: string;
-  brand?: string;
+export type Leg = {
   title: string;
+  brand?: string;
   copy: string;
   themes?: string[];
-  /** null => nothing to link to yet; render `note` instead of a CTA. */
+  /** null => nothing real to link to yet; `note` is shown instead. */
   cta: Cta | null;
   note?: string;
-  accent: Accent;
-  icon: ConnectIconName;
+  /** a quiet graphic motif for legs that carry no theme list. */
+  motif?: "orbit" | "draft";
 };
 
-export const primaryOfferings: Offering[] = [
+export const legs: Leg[] = [
   {
-    number: "01",
     title: "Schedule an AR/VR ISRO Seminar",
-    copy: "Bring immersive space, science and technology experiences to your school.",
-    // No dedicated AR/VR page exists in the repo. Real, related proof:
-    // STEM Tours (Chennai–Sriharikota space circuit) and ISRO visit photos
-    // in the gallery. The CTA routes into the /contact flow with context.
+    copy: "Bring immersive space, science and technology experiences into your school — a session built around curiosity about how the universe works.",
+    // No dedicated AR/VR page exists in the repo. Real, related proof: the
+    // Chennai–Sriharikota STEM circuit and ISRO visit photography. The CTA
+    // routes into /contact with context.
     cta: {
       label: "Schedule a Session",
       href: contactUrl("an AR/VR & ISRO space-science seminar at our school"),
       external: false,
     },
-    accent: "teal",
-    icon: "rocket",
+    motif: "orbit",
   },
   {
-    number: "02",
     title: "Explore Experiential Learning Programs",
     copy: "Structured, real-world exposure across the themes shaping future-ready students.",
     themes: [
@@ -183,23 +159,18 @@ export const primaryOfferings: Offering[] = [
       "Outdoor & Leadership Learning",
     ],
     cta: { label: "Explore Programs", href: "/programs", external: false },
-    accent: "green",
-    icon: "experiential",
   },
   {
-    number: "03",
     brand: "Kashti Lens",
-    title: "Download the Latest Monthly Magazine",
+    title: "The Monthly Magazine",
     copy: "Insights, ideas, opportunities and conversations shaping the future of student learning.",
-    // No magazine / PDF exists in the repo yet — presented as an honest
-    // "coming soon" rather than a broken download.
+    // No magazine / PDF exists in the repo yet — an honest "log not yet
+    // written" note rather than a broken download.
     cta: null,
-    note: "New issue coming soon",
-    accent: "gold",
-    icon: "magazine",
+    note: "New issue in preparation",
+    motif: "draft",
   },
   {
-    number: "04",
     title: "Request a Custom Experience",
     copy: "Tell us what your school wants to achieve. We’ll help design the right experience.",
     themes: [
@@ -216,20 +187,27 @@ export const primaryOfferings: Offering[] = [
       href: contactUrl("designing a custom experience for our school"),
       external: false,
     },
-    accent: "coral",
-    icon: "custom",
   },
 ];
 
-// --- Section 4 — Explore more (visually lighter) ------------------------
-// Only real destinations. "Insights for Education Leaders" is intentionally
-// omitted: no articles/blog/insights content exists in the repo yet.
+// --- Station 4 — Sightings (real photography trail) -------------------
+// A curated subset of the real gallery. "Insights for Education Leaders"
+// stays omitted — no articles/blog content exists in the repo.
 
-export const experiencesInAction = {
-  title: "See Experiences in Action",
-  copy: "Photos from Kashti programmes, institution visits and field expeditions — as they actually happened.",
-  cta: { label: "View the Gallery", href: "/gallery", external: false } as Cta,
-};
+export type Sighting = { photo: GalleryPhoto; caption: string };
+
+export const sightingsHeading = "See Experiences in Action";
+export const sightingsCta: Cta = { label: "Open the Gallery", href: "/gallery", external: false };
+
+export const sightings: Sighting[] = [
+  { photo: photo("expedition-group-1.jpg"), caption: "Expedition · Corbett" },
+  { photo: photo("school-leaders-summit.jpeg"), caption: "School Leaders’ Summit" },
+  { photo: photo("shimla-expedition.jpeg"), caption: "Expedition · Shimla" },
+  { photo: photo("opj-visit-1.jpeg"), caption: "Campus visit · O.P. Jindal University" },
+  { photo: photo("ntpc-activity.jpeg"), caption: "Industry activity · NTPC" },
+  { photo: photo("iilm-session.jpeg"), caption: "Programme session · IILM" },
+  { photo: photo("isro-visit-1.jpeg"), caption: "Seminar session in school" },
+];
 
 export const exploreLinks: { label: string; href: string }[] = [
   { label: "About Kashti", href: "/about" },
@@ -237,16 +215,11 @@ export const exploreLinks: { label: string; href: string }[] = [
   { label: "The Experience Model", href: "/experiences" },
 ];
 
-// --- Section 5 — School-leader conversation (conversion) ---------------
+// --- Station 5 — Hail (conversation / conversion) --------------------
 
 export const conversation = {
   heading: "Let’s discuss what your students need next.",
-  modes: [
-    "15-Minute Discovery Call",
-    "School Visit",
-    "Program Presentation",
-    "Custom Experience Design",
-  ],
+  modes: ["15-Minute Discovery Call", "School Visit", "Program Presentation", "Custom Experience Design"],
   primary: {
     label: "Book a Conversation",
     href: contactUrl("a conversation about what our students need next"),
@@ -255,45 +228,49 @@ export const conversation = {
   secondary: { label: "WhatsApp", href: whatsappUrl, external: true } as Cta,
 };
 
-// --- Section 6 — Closing / digital contact card -----------------------
+// --- Station 6 — Harbour (arrival / digital contact card) -----------
 
 export const closing = {
   heading: "Keep Kashti With You",
   statement: "Let’s Create Opportunities Students Remember.",
 };
 
-export type ContactAction = {
+export type ContactRow = {
   label: string;
   value: string;
   href: string;
-  icon: ConnectIconName;
   external: boolean;
+  /** true => triggers a download rather than navigation (the vCard). */
+  download?: boolean;
+  /** the visually elevated row — the point of a visiting card. */
+  emphasis?: boolean;
 };
 
-export const contactActions: ContactAction[] = [
-  { label: "Call", value: siteConfig.contact.phone, href: phoneUrl, icon: "phone", external: false },
-  { label: "WhatsApp", value: siteConfig.contact.phone, href: whatsappUrl, icon: "whatsapp", external: true },
-  { label: "Email", value: siteConfig.contact.email, href: emailUrl, icon: "email", external: false },
+export const manifest: ContactRow[] = [
+  { label: "Call", value: siteConfig.contact.phone, href: phoneUrl, external: false },
+  { label: "WhatsApp", value: "Message the team", href: whatsappUrl, external: true },
+  { label: "Email", value: siteConfig.contact.email, href: emailUrl, external: false },
+  { label: "Save Our Contact", value: "kashti-educare.vcf", href: "/kashti-educare.vcf", external: false, download: true, emphasis: true },
 ];
-
-/** Static vCard in /public, built from verified siteConfig data only. */
-export const saveContact = { label: "Save Our Contact", href: "/kashti-educare.vcf" };
 
 export type SocialLink = {
   label: string;
   /** `null` until a real, verified account URL exists (siteConfig.sameAs is empty). */
   href: string | null;
-  icon: ConnectIconName;
 };
 
 export const socialLinks: SocialLink[] = [
-  { label: "LinkedIn", href: null, icon: "linkedin" },
-  { label: "Instagram", href: null, icon: "instagram" },
-  { label: "YouTube", href: null, icon: "youtube" },
-  { label: "Facebook", href: null, icon: "facebook" },
+  { label: "LinkedIn", href: null },
+  { label: "Instagram", href: null },
+  { label: "YouTube", href: null },
+  { label: "Facebook", href: null },
 ];
 
-/** Social buttons are only rendered when a real URL is configured above. */
+/** Social links are only rendered when a real URL is configured above. */
 export function visibleSocials(): SocialLink[] {
   return socialLinks.filter((s) => s.href);
 }
+
+export const wordmark = { primary: "Kashti", secondary: "educare" };
+export const homeHref = "/";
+export const homeLabel = "kashtieducare.com";

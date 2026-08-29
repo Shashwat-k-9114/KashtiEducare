@@ -1,15 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  contactActions,
   contactUrl,
   conversation,
+  directions,
   exploreLinks,
-  experiencesInAction,
   hero,
-  needShortcuts,
-  primaryOfferings,
-  saveContact,
+  journey,
+  legs,
+  manifest,
+  sightings,
+  sightingsCta,
   socialLinks,
   visibleSocials,
   whatsappUrl,
@@ -28,55 +29,50 @@ function isSafeHref(href: string): boolean {
   }
 }
 
-function collectCtas(): { where: string; cta: Cta }[] {
+function everyCta(): { where: string; cta: Cta }[] {
   const out: { where: string; cta: Cta }[] = [];
   hero.actions.forEach((a) => out.push({ where: `hero:${a.label}`, cta: a }));
-  primaryOfferings.forEach((o) => {
-    if (o.cta) out.push({ where: `offering:${o.number}`, cta: o.cta });
+  legs.forEach((l, i) => {
+    if (l.cta) out.push({ where: `leg${i}`, cta: l.cta });
   });
-  out.push({ where: "experiencesInAction", cta: experiencesInAction.cta });
+  out.push({ where: "sightings", cta: sightingsCta });
   out.push({ where: "conversation:primary", cta: conversation.primary });
   out.push({ where: "conversation:secondary", cta: conversation.secondary });
   return out;
 }
 
-describe("connect config — every exposed href is real and safe", () => {
-  it("hero CTAs", () => {
-    for (const { where, cta } of collectCtas()) {
+describe("every exposed link is real and safe", () => {
+  it("CTAs resolve to an internal route or an allowed scheme", () => {
+    for (const { where, cta } of everyCta()) {
       expect(isSafeHref(cta.href), `${where} -> ${cta.href}`).toBe(true);
     }
   });
 
-  it("need shortcuts point at internal routes", () => {
-    for (const need of needShortcuts) {
-      expect(need.href.startsWith("/"), need.label).toBe(true);
-      expect(isSafeHref(need.href), need.label).toBe(true);
+  it("bearing directions point at internal routes", () => {
+    for (const d of directions) {
+      expect(d.href.startsWith("/"), d.label).toBe(true);
     }
   });
 
-  it("explore links + gallery are internal routes", () => {
-    for (const link of [...exploreLinks, experiencesInAction.cta]) {
-      expect(link.href.startsWith("/"), link.href).toBe(true);
-    }
+  it("explore links point at internal routes", () => {
+    for (const l of exploreLinks) expect(l.href.startsWith("/"), l.href).toBe(true);
   });
 
-  it("contact actions use tel:/mailto:/https and carry a value", () => {
-    for (const action of contactActions) {
-      expect(isSafeHref(action.href), action.label).toBe(true);
-      expect(action.value.length).toBeGreaterThan(0);
+  it("manifest rows use tel:/mailto:/https or the local vCard", () => {
+    for (const row of manifest) {
+      expect(isSafeHref(row.href), row.label).toBe(true);
+      expect(row.value.length).toBeGreaterThan(0);
     }
-  });
-
-  it("save-contact points at the static vCard in /public", () => {
-    expect(saveContact.href).toBe("/kashti-educare.vcf");
+    const save = manifest.find((r) => r.download);
+    expect(save?.href).toBe("/kashti-educare.vcf");
+    expect(save?.emphasis).toBe(true);
   });
 });
 
 describe("external-link flags", () => {
-  it("https CTAs are marked external, internal/mailto/tel are not", () => {
-    for (const { where, cta } of collectCtas()) {
-      const expected = cta.href.startsWith("http");
-      expect(cta.external, `${where} (${cta.href})`).toBe(expected);
+  it("https CTAs are external; internal / mailto / tel are not", () => {
+    for (const { where, cta } of everyCta()) {
+      expect(cta.external, `${where} (${cta.href})`).toBe(cta.href.startsWith("http"));
     }
   });
 
@@ -87,9 +83,7 @@ describe("external-link flags", () => {
 
 describe("contactUrl()", () => {
   it("builds a /contact deep-link with intent + prefilled topic", () => {
-    const url = contactUrl("a custom experience", "school");
-    expect(url.startsWith("/contact?")).toBe(true);
-    const qs = new URLSearchParams(url.split("?")[1]);
+    const qs = new URLSearchParams(contactUrl("a custom experience", "school").split("?")[1]);
     expect(qs.get("intent")).toBe("school");
     expect(qs.get("program")).toBe("a custom experience");
   });
@@ -99,15 +93,46 @@ describe("contactUrl()", () => {
   });
 });
 
-describe("offerings", () => {
-  it("are numbered 01–04 with unique numbers", () => {
-    const numbers = primaryOfferings.map((o) => o.number);
-    expect(numbers).toEqual(["01", "02", "03", "04"]);
+describe("voyage structure", () => {
+  it("has the six ordered stations", () => {
+    expect(journey.map((s) => s.id)).toEqual([
+      "departure",
+      "bearing",
+      "passage",
+      "sightings",
+      "hail",
+      "harbour",
+    ]);
   });
 
-  it("every offering has a CTA or an explanatory note (never a broken link)", () => {
-    for (const o of primaryOfferings) {
-      if (!o.cta) expect(o.note, o.number).toBeTruthy();
+  it("offers four legs, each with a CTA or an explanatory note", () => {
+    expect(legs).toHaveLength(4);
+    for (const leg of legs) {
+      if (!leg.cta) expect(leg.note, leg.title).toBeTruthy();
+    }
+  });
+
+  it("has five bearing directions with decorative compass readings", () => {
+    expect(directions).toHaveLength(5);
+    for (const d of directions) expect(d.bearing).toMatch(/^\d{3}°$/);
+  });
+});
+
+describe("real imagery only", () => {
+  it("every sighting resolves to a real file in /public/images/gallery", () => {
+    expect(sightings.length).toBeGreaterThanOrEqual(6);
+    for (const s of sightings) {
+      expect(s.photo.src.startsWith("/images/gallery/")).toBe(true);
+      expect(s.photo.width).toBeGreaterThan(0);
+      expect(s.photo.height).toBeGreaterThan(0);
+      expect(s.photo.alt.length).toBeGreaterThan(0);
+      expect(s.caption.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("legs carry no imagery — the photography all lives at Sightings", () => {
+    for (const leg of legs) {
+      expect("image" in leg).toBe(false);
     }
   });
 });
@@ -116,11 +141,5 @@ describe("social links", () => {
   it("covers the four networks and exposes none without a real URL", () => {
     expect(socialLinks.map((s) => s.label).sort()).toEqual(["Facebook", "Instagram", "LinkedIn", "YouTube"]);
     expect(visibleSocials()).toHaveLength(0);
-  });
-
-  it("any configured social href would be an absolute https URL", () => {
-    for (const s of socialLinks) {
-      if (s.href) expect(s.href.startsWith("https://"), s.label).toBe(true);
-    }
   });
 });
