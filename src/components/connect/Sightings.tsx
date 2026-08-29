@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion";
 import { exploreLinks, sightings, sightingsCta, sightingsHeading } from "@/data/connect";
+import { InstagramStrip } from "./InstagramStrip";
 import { CourseLink } from "./parts";
 
 /**
@@ -62,6 +63,10 @@ export function Sightings() {
             {l.label}
           </Link>
         ))}
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <InstagramStrip />
       </Reveal>
     </div>
   );

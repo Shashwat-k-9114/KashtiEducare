@@ -1,7 +1,8 @@
 import { ArrowUpRight, Download } from "lucide-react";
 import Link from "next/link";
 
-import { closing, homeHref, homeLabel, manifest, type ContactRow, type Station } from "@/data/connect";
+import { closing, homeHref, homeLabel, manifest, visibleSocials, type ContactRow, type Station } from "@/data/connect";
+import { socialGlyphMap } from "./icons";
 import { Buoy } from "./Stage";
 
 /**
@@ -11,6 +12,7 @@ import { Buoy } from "./Stage";
  * the digital half of a visiting card.
  */
 export function Harbour({ station }: { station: Station }) {
+  const socials = visibleSocials();
   return (
     <section
       aria-label={`${station.name} — ${station.note}`}
@@ -41,14 +43,38 @@ export function Harbour({ station }: { station: Station }) {
           </div>
         </div>
 
-        <div className="mt-16 flex items-center gap-3 border-t border-white/10 pt-6">
-          <span className="h-px w-6 bg-white/25" aria-hidden="true" />
-          <Link
-            href={homeHref}
-            className="font-mono-label rounded-sm text-[10px] tracking-[0.24em] text-kashti-bg-light/40 uppercase transition-colors hover:text-kashti-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kashti-gold focus-visible:ring-offset-2 focus-visible:ring-offset-kashti-bg-dark"
-          >
-            {homeLabel}
-          </Link>
+        <div className="mt-16 flex flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-6 bg-white/25" aria-hidden="true" />
+            <Link
+              href={homeHref}
+              className="font-mono-label rounded-sm text-[10px] tracking-[0.24em] text-kashti-bg-light/40 uppercase transition-colors hover:text-kashti-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kashti-gold focus-visible:ring-offset-2 focus-visible:ring-offset-kashti-bg-dark"
+            >
+              {homeLabel}
+            </Link>
+          </div>
+
+          {socials.length > 0 ? (
+            <div className="flex items-center gap-5">
+              <span className="font-mono-label text-[9px] tracking-[0.28em] text-kashti-bg-light/35 uppercase">Follow</span>
+              {socials.map((s) => {
+                const Glyph = socialGlyphMap[s.label];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Kashti Educare on ${s.label} (opens in a new tab)`}
+                    className="group inline-flex items-center gap-2 rounded-sm text-kashti-bg-light/55 transition-colors hover:text-kashti-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kashti-gold focus-visible:ring-offset-2 focus-visible:ring-offset-kashti-bg-dark"
+                  >
+                    <Glyph size={16} aria-hidden="true" />
+                    <span className="font-mono-label text-[10px] tracking-[0.18em] uppercase">{s.label}</span>
+                  </a>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

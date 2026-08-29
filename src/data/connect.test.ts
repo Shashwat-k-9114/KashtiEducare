@@ -6,8 +6,10 @@ import {
   directions,
   exploreLinks,
   hero,
+  instagram,
   journey,
   legs,
+  magazine,
   manifest,
   sightings,
   sightingsCta,
@@ -105,10 +107,10 @@ describe("voyage structure", () => {
     ]);
   });
 
-  it("offers four legs, each with a CTA or an explanatory note", () => {
+  it("offers four legs, each with a CTA, an explanatory note, or the magazine feature", () => {
     expect(legs).toHaveLength(4);
     for (const leg of legs) {
-      if (!leg.cta) expect(leg.note, leg.title).toBeTruthy();
+      if (!leg.cta) expect(Boolean(leg.note || leg.magazine), leg.title).toBe(true);
     }
   });
 
@@ -138,8 +140,45 @@ describe("real imagery only", () => {
 });
 
 describe("social links", () => {
-  it("covers the four networks and exposes none without a real URL", () => {
-    expect(socialLinks.map((s) => s.label).sort()).toEqual(["Facebook", "Instagram", "LinkedIn", "YouTube"]);
-    expect(visibleSocials()).toHaveLength(0);
+  it("carries Instagram + LinkedIn, and only exposes ones with a real URL", () => {
+    expect(socialLinks.map((s) => s.label).sort()).toEqual(["Instagram", "LinkedIn"]);
+    for (const s of socialLinks) {
+      if (s.href) expect(s.href.startsWith("https://")).toBe(true);
+    }
+    const visible = visibleSocials();
+    expect(visible.map((s) => s.label)).toEqual(["Instagram"]);
+    expect(visible.every((s) => s.href.length > 0)).toBe(true);
+  });
+});
+
+describe("magazine feature", () => {
+  it("is wired to the Kashti Lens leg and is cover-image-ready", () => {
+    const lens = legs.find((l) => l.brand === "Kashti Lens");
+    expect(lens?.magazine).toBe(magazine);
+    expect(magazine).toMatchObject({ coverImage: null, href: null, status: "in-preparation" });
+    expect(magazine.placeholderNote.length).toBeGreaterThan(0);
+  });
+
+  it("shows no CTA and no download while an issue is not available", () => {
+    const lens = legs.find((l) => l.brand === "Kashti Lens");
+    expect(lens?.cta).toBeNull();
+  });
+});
+
+describe("instagram highlights", () => {
+  const shortcode = /^[A-Za-z0-9_-]{6,}$/;
+
+  it("has exactly three curated posts, each linking to the real post URL", () => {
+    expect(instagram.posts).toHaveLength(3);
+    for (const p of instagram.posts) {
+      expect(p.id).toMatch(shortcode);
+      expect(p.href).toBe(`https://www.instagram.com/kashti_educare/p/${p.id}/`);
+      expect(p.external).toBe(true);
+    }
+  });
+
+  it("the profile CTA points at the real Kashti Educare Instagram", () => {
+    expect(instagram.profileCta.href).toBe("https://www.instagram.com/kashti_educare/");
+    expect(instagram.profileCta.external).toBe(true);
   });
 });

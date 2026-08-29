@@ -121,6 +121,32 @@ export const directions: Direction[] = [
 
 // --- Station 3 — Passage (primary offerings, four legs) ----------------
 
+/**
+ * Kashti Lens — the magazine feature. Built cover-image-first so that when
+ * a real issue exists it drops straight in: set `coverImage`, `issueLabel`
+ * and `href`, flip `status` to "available", and the section upgrades from
+ * the placeholder mock to a real publication card with no redesign.
+ */
+export type MagazineIssue = {
+  status: "in-preparation" | "available";
+  /** e.g. "Issue 01 · Autumn 2026" — null while none is published. */
+  issueLabel: string | null;
+  /** portrait cover art. null => a designed placeholder cover is shown. */
+  coverImage: { src: string; alt: string; width: number; height: number } | null;
+  /** where the issue lives (a page or a PDF) once it exists. */
+  href: string | null;
+  /** shown in the placeholder state. */
+  placeholderNote: string;
+};
+
+export const magazine: MagazineIssue = {
+  status: "in-preparation",
+  issueLabel: null,
+  coverImage: null,
+  href: null,
+  placeholderNote: "New issue in preparation",
+};
+
 export type Leg = {
   title: string;
   brand?: string;
@@ -129,8 +155,8 @@ export type Leg = {
   /** null => nothing real to link to yet; `note` is shown instead. */
   cta: Cta | null;
   note?: string;
-  /** a quiet graphic motif for legs that carry no theme list. */
-  motif?: "orbit" | "draft";
+  /** present only on the Kashti Lens leg — renders the magazine feature. */
+  magazine?: MagazineIssue;
 };
 
 export const legs: Leg[] = [
@@ -145,7 +171,6 @@ export const legs: Leg[] = [
       href: contactUrl("an AR/VR & ISRO space-science seminar at our school"),
       external: false,
     },
-    motif: "orbit",
   },
   {
     title: "Explore Experiential Learning Programs",
@@ -164,11 +189,11 @@ export const legs: Leg[] = [
     brand: "Kashti Lens",
     title: "The Monthly Magazine",
     copy: "Insights, ideas, opportunities and conversations shaping the future of student learning.",
-    // No magazine / PDF exists in the repo yet — an honest "log not yet
-    // written" note rather than a broken download.
+    // No magazine / PDF exists in the repo yet — the section shows a
+    // designed placeholder cover, ready to accept a real issue via
+    // `magazine` (see MagazineIssue above). No fake file, no broken CTA.
     cta: null,
-    note: "New issue in preparation",
-    motif: "draft",
+    magazine,
   },
   {
     title: "Request a Custom Experience",
@@ -215,6 +240,34 @@ export const exploreLinks: { label: string; href: string }[] = [
   { label: "The Experience Model", href: "/experiences" },
 ];
 
+// --- Instagram — a curated highlights strip -------------------------------
+// Three posts hand-picked for /connect. We deliberately do NOT embed
+// Instagram scripts/iframes or hotlink their (expiring, signed) CDN
+// images — the cards are lightweight local previews that link straight to
+// the real post. Drop `image` on a post later to show a real thumbnail.
+
+export type InstagramPost = {
+  id: string;
+  href: string;
+  external: true;
+  /** optional real thumbnail (add to /public and reference here). */
+  image?: { src: string; alt: string; width: number; height: number };
+};
+
+const IG_PROFILE = "https://www.instagram.com/kashti_educare/";
+
+const igPostIds = ["DbLqX89E2JU", "DbPim1Gkwf7", "DbSGljDE6DS"];
+
+export const instagram = {
+  handle: "kashti_educare",
+  heading: "On Instagram",
+  intro: "A few recent moments from the field, straight from @kashti_educare.",
+  profileCta: { label: "View Instagram", href: IG_PROFILE, external: true } as Cta,
+  posts: igPostIds.map(
+    (id): InstagramPost => ({ id, href: `${IG_PROFILE}p/${id}/`, external: true }),
+  ),
+};
+
 // --- Station 5 — Hail (conversation / conversion) --------------------
 
 export const conversation = {
@@ -254,21 +307,23 @@ export const manifest: ContactRow[] = [
 ];
 
 export type SocialLink = {
-  label: string;
-  /** `null` until a real, verified account URL exists (siteConfig.sameAs is empty). */
+  label: "Instagram" | "LinkedIn";
+  /** `null` until a real, verified account URL exists — the button is then hidden. */
   href: string | null;
 };
 
 export const socialLinks: SocialLink[] = [
+  // Verified: the account behind the three curated /connect post URLs.
+  { label: "Instagram", href: "https://www.instagram.com/kashti_educare/" },
+  // TODO: no verified Kashti Educare LinkedIn company-page URL exists
+  // anywhere in this repo yet. Paste the real URL here and the button
+  // appears automatically — until then it stays hidden.
   { label: "LinkedIn", href: null },
-  { label: "Instagram", href: null },
-  { label: "YouTube", href: null },
-  { label: "Facebook", href: null },
 ];
 
 /** Social links are only rendered when a real URL is configured above. */
-export function visibleSocials(): SocialLink[] {
-  return socialLinks.filter((s) => s.href);
+export function visibleSocials(): { label: "Instagram" | "LinkedIn"; href: string }[] {
+  return socialLinks.filter((s): s is { label: "Instagram" | "LinkedIn"; href: string } => Boolean(s.href));
 }
 
 export const wordmark = { primary: "Kashti", secondary: "educare" };
