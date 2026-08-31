@@ -10,10 +10,13 @@ import type { Programme } from "@/data/programs";
 export const siteConfig = {
   name: "Kashti Educare",
   shortName: "Kashti",
-  // TODO: set NEXT_PUBLIC_SITE_URL to the real production domain before
-  // launch — canonical URLs, the sitemap, robots.txt, llms.txt and every
-  // OG/Twitter image URL below are derived from this.
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.kashtieducare.com").replace(/\/$/, ""),
+  // Canonical production domain: the non-www apex. Every canonical URL,
+  // the sitemap, robots.txt's Sitemap: line, llms.txt, the JSON-LD `url`
+  // fields and every OG/Twitter image URL below are derived from this, so
+  // it MUST match the domain Vercel serves as primary (apex, with
+  // www.kashtieducare.com redirecting to it). Override per-deployment with
+  // NEXT_PUBLIC_SITE_URL only when a different origin is genuinely needed.
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://kashtieducare.com").replace(/\/$/, ""),
   description:
     "Kashti Educare connects learners with people, institutions, industries and ideas shaping the real world through meaningful, transformative experiences.",
   tagline: "Preparing Learners for the World Beyond the Classroom",

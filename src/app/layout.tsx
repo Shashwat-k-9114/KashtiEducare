@@ -32,6 +32,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   alternates: { canonical: absoluteUrl("/") },
+  // app/favicon.ico is picked up automatically by Next; only the
+  // apple-touch-icon needs wiring, and it reuses the existing square logo.
+  icons: { apple: "/logo.jpeg" },
   openGraph: {
     title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
