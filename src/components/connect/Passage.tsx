@@ -1,5 +1,7 @@
-import { Reveal } from "@/components/motion";
-import { legs, type Leg as LegData } from "@/data/connect";
+import Image from "next/image";
+
+import { Reveal, StaggerGrid, StaggerItem } from "@/components/motion";
+import { legs, type Leg as LegData, type LegPhoto } from "@/data/connect";
 import { MagazineCover } from "./MagazineCover";
 import { CourseLink } from "./parts";
 
@@ -7,8 +9,8 @@ import { CourseLink } from "./parts";
  * Station 3 — the passage. Four legs, one system (a mono leg mark, an
  * oversized Fraunces title, one course-line CTA) but no two the same:
  * legs with a theme list open into a two-column "manifest"; Kashti Lens
- * is a magazine feature with a cover; the rest carry a quiet drawn motif.
- * Type-led on purpose — the photography lives further down, at Sightings.
+ * is a magazine feature with a cover; the AR/VR leg carries an editorial
+ * collage of real session photography; the rest carry a quiet drawn motif.
  */
 export function Passage() {
   return (
@@ -74,7 +76,90 @@ function OrbitMotif() {
   );
 }
 
+/**
+ * One frame of the AR/VR collage. Same treatment as the Sightings
+ * photography — hairline border, near-white base, faint inset ring, a
+ * sharp `rounded-sm` — inside a fixed-ratio box so nothing shifts as it
+ * loads. `object-position` is tuned per frame so headsets, faces and
+ * controllers survive the crop.
+ */
+function CollageFrame({
+  photo,
+  ratio,
+  position,
+  sizes,
+  className = "",
+}: {
+  photo: LegPhoto;
+  ratio: string;
+  position: string;
+  sizes: string;
+  className?: string;
+}) {
+  return (
+    <StaggerItem className={className}>
+      <div
+        className={`relative ${ratio} overflow-hidden rounded-sm border border-kashti-charcoal/10 bg-kashti-bg-light`}
+      >
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          sizes={sizes}
+          loading="lazy"
+          className="h-full w-full object-cover"
+          style={{ objectPosition: position }}
+        />
+        <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/5" aria-hidden="true" />
+      </div>
+    </StaggerItem>
+  );
+}
+
+/**
+ * The AR/VR proof panel — takes the place of the drawn orbit motif on this
+ * leg only. Four real session photographs in an asymmetric editorial grid:
+ * a dominant frame, a paired middle row, then a wide closing band. Reads
+ * as one figure with a single quiet caption, and collapses to the same
+ * shape (stacked, full-width) beneath the copy on tablet and mobile.
+ */
+function ImmersiveCollage({ photos, caption }: { photos: LegPhoto[]; caption?: string }) {
+  const [hero, left, right, band] = photos;
+  const wide = "(min-width: 1024px) 26vw, (min-width: 640px) 60vw, 92vw";
+  const half = "(min-width: 1024px) 13vw, (min-width: 640px) 30vw, 45vw";
+
+  return (
+    <figure className="mt-9 lg:mt-0">
+      <StaggerGrid className="grid grid-cols-2 gap-3 sm:gap-4" stagger={0.08} delayChildren={0.04}>
+        <CollageFrame photo={hero} ratio="aspect-[16/10]" position="50% 28%" sizes={wide} className="col-span-2" />
+        <CollageFrame photo={left} ratio="aspect-square" position="48% 38%" sizes={half} />
+        <CollageFrame photo={right} ratio="aspect-square" position="50% 45%" sizes={half} />
+        <CollageFrame photo={band} ratio="aspect-[16/9]" position="50% 62%" sizes={wide} className="col-span-2" />
+      </StaggerGrid>
+      {caption ? (
+        <figcaption className="font-mono-label mt-4 text-[10px] tracking-[0.14em] text-kashti-charcoal/45 uppercase">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
 function Leg({ leg, index }: { leg: LegData; index: number }) {
+  if (leg.gallery) {
+    return (
+      <Reveal>
+        <article className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-10">
+          <div>
+            <LegHead leg={leg} index={index} />
+          </div>
+          <ImmersiveCollage photos={leg.gallery} caption={leg.galleryCaption} />
+        </article>
+      </Reveal>
+    );
+  }
+
   if (leg.magazine) {
     const { magazine } = leg;
     const canRead = magazine.status === "available" && magazine.href;

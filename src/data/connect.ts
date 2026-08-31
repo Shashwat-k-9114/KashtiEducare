@@ -147,6 +147,9 @@ export const magazine: MagazineIssue = {
   placeholderNote: "New issue in preparation",
 };
 
+/** A real photograph with authoritative alt + intrinsic dimensions. */
+export type LegPhoto = { src: string; alt: string; width: number; height: number };
+
 export type Leg = {
   title: string;
   brand?: string;
@@ -157,20 +160,56 @@ export type Leg = {
   note?: string;
   /** present only on the Kashti Lens leg — renders the magazine feature. */
   magazine?: MagazineIssue;
+  /**
+   * present only on the AR/VR leg — real session photography, rendered as
+   * an editorial collage in place of the drawn orbit motif. Order matters:
+   * [0] is the dominant frame, [1] and [2] the paired supports, [3] the
+   * closing wide band.
+   */
+  gallery?: LegPhoto[];
+  /** restrained mono caption shown beneath the collage. */
+  galleryCaption?: string;
 };
 
 export const legs: Leg[] = [
   {
     title: "Schedule an AR/VR ISRO Seminar",
     copy: "Bring immersive space, science and technology experiences into your school — a session built around curiosity about how the universe works.",
-    // No dedicated AR/VR page exists in the repo. Real, related proof: the
-    // Chennai–Sriharikota STEM circuit and ISRO visit photography. The CTA
-    // routes into /contact with context.
+    // No dedicated AR/VR page exists in the repo. The CTA routes into
+    // /contact with context. Proof lives in `gallery` — real photographs
+    // from an immersive VR session run in a school hall.
     cta: {
       label: "Schedule a Session",
       href: contactUrl("an AR/VR & ISRO space-science seminar at our school"),
       external: false,
     },
+    galleryCaption: "Immersive AR/VR experience",
+    gallery: [
+      {
+        src: "/connect/ar-vr/vr-student-experience-01.jpg",
+        alt: "A student mid-session in a VR headset, controllers in hand, during a Kashti immersive-technology workshop in a school hall",
+        width: 655,
+        height: 462,
+      },
+      {
+        src: "/connect/ar-vr/vr-student-experience-02.jpg",
+        alt: "A student on their feet, moving through a virtual environment with a VR headset and hand controllers",
+        width: 652,
+        height: 467,
+      },
+      {
+        src: "/connect/ar-vr/vr-group-experience.jpg",
+        alt: "Two students exploring a shared virtual scene in VR headsets, one kneeling in the foreground to take aim",
+        width: 656,
+        height: 462,
+      },
+      {
+        src: "/connect/ar-vr/vr-immersive-warfare-setup.jpg",
+        alt: "The session setup — a large display reading Immersive Warfare beside a row of charged VR headsets ready for students",
+        width: 661,
+        height: 472,
+      },
+    ],
   },
   {
     title: "Explore Experiential Learning Programs",
