@@ -78,10 +78,10 @@ export function AnnouncementBanner() {
       style={{ background: "linear-gradient(90deg, var(--kashti-green), var(--kashti-green-soft))" }}
     >
       <div
-        className="mx-auto flex max-w-6xl items-center justify-center gap-3 transition-opacity duration-200"
+        className="mx-auto flex max-w-6xl items-center justify-center gap-3 pr-14 transition-opacity duration-200 md:pr-0"
         style={{ opacity: fading ? 0 : 1 }}
       >
-        <p className="font-mono-label text-[11px] leading-snug tracking-wide text-white sm:text-xs">
+        <p className="font-mono-label text-[11px] leading-snug tracking-wide break-words text-white sm:text-xs">
           {current.message}
           {current.link ? (
             <Link
@@ -98,7 +98,7 @@ export function AnnouncementBanner() {
         type="button"
         onClick={dismiss}
         aria-label="Dismiss announcement"
-        className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/15 hover:text-white lg:right-6"
+        className="absolute top-1/2 right-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/15 hover:text-white md:h-5 md:w-5 lg:right-6"
       >
         <X size={13} strokeWidth={2.25} />
       </button>

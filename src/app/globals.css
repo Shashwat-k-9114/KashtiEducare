@@ -197,3 +197,35 @@ body {
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Hero carousel intro — segmented "wake" progress bar                */
+/* Each slide gets its own hand-drawn wave segment in the bottom      */
+/* control strip; the active one draws itself left-to-right over the */
+/* slide's dwell time. Duration is set inline per-element (it matches */
+/* the carousel's JS interval), so only the keyframe/timing/fill-mode */
+/* live here. pathLength="1" on the <path> normalizes                */
+/* stroke-dasharray/-dashoffset to 0–1 no matter the segment's actual */
+/* on-screen length.                                                  */
+/* ------------------------------------------------------------------ */
+
+@keyframes hero-carousel-wake-fill {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-carousel-wake-fill {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation-name: hero-carousel-wake-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.hero-carousel-wake-fill.is-paused {
+  animation-play-state: paused;
+}

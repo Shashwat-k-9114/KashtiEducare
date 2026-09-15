@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Hero } from "@/components/Hero";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { NoticeBoard } from "@/components/NoticeBoard";
 import { GalleryTeaser } from "@/components/GalleryTeaser";
 import { ImpactSection } from "@/components/ImpactSection";
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <HeroCarousel />
       <Hero />
       <NoticeBoard />
       <GalleryTeaser />
