@@ -1,0 +1,90 @@
+{
+  "index": {
+    "title": "Kashti Educare | Experiential learning for schools & colleges",
+    "description": "Kashti Educare prepares learners for the world beyond the classroom with NEP 2020-aligned STEM tours, industry exposure, leadership camps and global immersion programmes for schools and higher education in India.",
+    "ogTitle": "Kashti Educare | Experiential learning for schools & colleges",
+    "ogDescription": "Kashti Educare prepares learners for the world beyond the classroom with NEP 2020-aligned STEM tours, industry exposure, leadership camps and global immersion programmes for schools and higher education in India.",
+    "canonical": "/",
+    "dataPage": "index"
+  },
+  "why-kashti": {
+    "title": "Why Kashti | Kashti Educare",
+    "description": "We connect learners with people, institutions, industries and ideas shaping the real world through NEP 2020-aligned experiential learning for schools and higher education.",
+    "ogTitle": "Why Kashti | Kashti Educare",
+    "ogDescription": "We connect learners with people, institutions, industries and ideas shaping the real world through NEP 2020-aligned experiential learning for schools and higher education.",
+    "canonical": "/why-kashti",
+    "dataPage": "why-kashti"
+  },
+  "people": {
+    "title": "People | Kashti Educare",
+    "description": "The people behind Kashti Educare: founder Karan Kumar Singh and advisors Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
+    "ogTitle": "People | Kashti Educare",
+    "ogDescription": "The people behind Kashti Educare: founder Karan Kumar Singh and advisors Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
+    "canonical": "/people",
+    "dataPage": "people"
+  },
+  "programs": {
+    "title": "Programs | Kashti Educare",
+    "description": "53 experiential programmes across eight themes (STEM, leadership, adventure, careers, university pathways, culture, global immersion and entrepreneurship) for schools and higher education.",
+    "ogTitle": "Programs | Kashti Educare",
+    "ogDescription": "53 experiential programmes across eight themes (STEM, leadership, adventure, careers, university pathways, culture, global immersion and entrepreneurship) for schools and higher education.",
+    "canonical": "/programs",
+    "dataPage": "programs"
+  },
+  "experiences": {
+    "title": "Experiences | Kashti Educare",
+    "description": "The Kashti Experience Model: how every programme moves learners from exposure to capability to clarity: Orient → Immerse → Build → Transform, and See → Build → Become.",
+    "ogTitle": "Experiences | Kashti Educare",
+    "ogDescription": "The Kashti Experience Model: how every programme moves learners from exposure to capability to clarity: Orient → Immerse → Build → Transform, and See → Build → Become.",
+    "canonical": "/experiences",
+    "dataPage": "experiences"
+  },
+  "formats": {
+    "title": "Formats | Kashti Educare",
+    "description": "Flexible by design: from a single 90-minute orientation session to a year-long institutional engagement aligned with your academic calendar.",
+    "ogTitle": "Formats | Kashti Educare",
+    "ogDescription": "Flexible by design: from a single 90-minute orientation session to a year-long institutional engagement aligned with your academic calendar.",
+    "canonical": "/formats",
+    "dataPage": "formats"
+  },
+  "institutions": {
+    "title": "Institutions | Kashti Educare",
+    "description": "Our learning ecosystem (industry, academia, government, experts, communities and startups) and the Education & Experience Council behind every Kashti programme.",
+    "ogTitle": "Institutions | Kashti Educare",
+    "ogDescription": "Our learning ecosystem (industry, academia, government, experts, communities and startups) and the Education & Experience Council behind every Kashti programme.",
+    "canonical": "/institutions",
+    "dataPage": "institutions"
+  },
+  "partners": {
+    "title": "Partners | Kashti Educare",
+    "description": "Industries, universities, government bodies, communities and startups that make up the Kashti partner network, and why to join it.",
+    "ogTitle": "Partners | Kashti Educare",
+    "ogDescription": "Industries, universities, government bodies, communities and startups that make up the Kashti partner network, and why to join it.",
+    "canonical": "/partners",
+    "dataPage": "partners"
+  },
+  "read": {
+    "title": "Read | Blogs, Newsletter and Magazine | Kashti Educare",
+    "description": "Blogs, the Kashti newsletter and the Kashti magazine: stories, field notes and ideas on experiential learning.",
+    "ogTitle": "Read | Blogs, Newsletter and Magazine | Kashti Educare",
+    "ogDescription": "Blogs, the Kashti newsletter and the Kashti magazine: stories, field notes and ideas on experiential learning.",
+    "canonical": "/read",
+    "dataPage": "read"
+  },
+  "gallery": {
+    "title": "Gallery | Kashti Educare",
+    "description": "Photos from Kashti Educare programmes, institution visits and field expeditions.",
+    "ogTitle": "Gallery | Kashti Educare",
+    "ogDescription": "Photos from Kashti Educare programmes, institution visits and field expeditions.",
+    "canonical": "/gallery",
+    "dataPage": "gallery"
+  },
+  "contact": {
+    "title": "Contact | Kashti Educare",
+    "description": "Share your institution's details and goals, and Kashti Educare will reply with a customised experiential-learning proposal.",
+    "ogTitle": "Contact | Kashti Educare",
+    "ogDescription": "Share your institution's details and goals, and Kashti Educare will reply with a customised experiential-learning proposal.",
+    "canonical": "/contact",
+    "dataPage": "contact"
+  }
+}

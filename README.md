@@ -1,58 +1,76 @@
-# Kashti Educare: static website (HTML · CSS · JS)
+# Kashti Educare (Next.js)
 
-A plain static site. No framework and no build step: open `index.html` in a browser, or upload the folder to any static host (Cloudflare Pages, Netlify, Vercel, GitHub Pages, cPanel).
+Production Next.js (App Router) build of the Kashti Educare site. Markup, styles, copy and behaviour are carried over 1:1 from the original static site (kept untouched in `legacy/`).
 
-```
-index.html          Home: year-stage hero, partner strip, visionaries, 8 pathways, A week at Kashti (7-day schedule), formats, 3-step planner,
-                    See-Build-Become, notice board (updates / expeditions / downloads), testimonials, CTA
-why-kashti.html     What we stand for, institution outcomes, NEP 2020 alignment
-people.html         Founder, advisors, open council seats, council structure
-programs.html       8 themes + the full 53-programme catalogue (filters, search, detail view, FAQ)
-experiences.html    Orient → Immerse → Build → Transform, and See → Build → Become
-formats.html        90 min → 1 day → 2–4 days → 5–7 days → Annual
-institutions.html   Learning ecosystem + Education & Experience Council
-partners.html       Who we partner with, why, partner logos
-read.html           Blogs, newsletter sign-up and magazine
-gallery.html        30 field photos, filters and a full-screen viewer
-contact.html        Enquiry form (reads ?intent=, ?program=, and plans sent from the planner)
-css/styles.css      All styles (colour tokens are at the top)
-js/data.js          ALL editable content: notices, downloads, programmes, partners, gallery, FAQ…
-js/main.js          Rendering and interactions
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
 ```
 
-## Everyday edits (all in `js/data.js`)
+Deploys as-is to Vercel (no env vars needed). If a corporate policy blocks Next's native compiler (an "Application Control" error on Windows), use `npx next build --webpack` / `npx next dev --webpack`.
 
-- **Post a notice:** add a line at the top of `notices` (date, tag, title, link).
-- **Attach a PDF:** put the file in a `downloads/` folder and set `url: "downloads/your-file.pdf"`. Until a URL is set, the link opens an email request instead.
-- **Add or change a programme:** edit `programmes`. Each one has `aud` (`school` or `he`), `formats` (`one`, `multi`, `res`, `intl`) and `themes`. Filters, counts and links update automatically.
-- **People:** edit `people` in data.js. To add a headshot, put a square photo in `images/people/` and set `photo: "images/people/name.jpg"` (no leading slash, so it loads from this folder) (until then each person shows coloured initials). Copy a block to add someone; `group` is `founder` or `advisor`. Open seats live in `peopleUpcoming`.
-- **Hero calendar (the year stage):** the sample year is `roadmap` in data.js (one programme per month). Each month's look (sky, land, light, particles, silhouette) is set in the `MOODS` table near the top of the stage section in `js/main.js`. The stage plays itself after a short sunrise, pauses on hover or when a visitor picks a month, and stays still for visitors who prefer reduced motion. It sleeps when scrolled off-screen or in a background tab, and on devices that can't hold the frame rate the particles drop to 1x resolution automatically.
-- **A week at Kashti (home):** edit `modelWeek` in data.js (`days` with colour, photo and activities; `notes` for the Program notes bar). On desktop the week plays Monday to Sunday by itself, with a sun travelling the rail and ticks checking off; hover or click a day to pause. On tablet and phone it becomes day tabs plus a swipeable track.
-- **Blog posts and the magazine flipbook:** the posts on the Read page come from `read.posts` in data.js (each: `tag`, `title`, `blurb`, optional `url` and `img`). Each post renders as a LinkedIn-style post card. To show the real LinkedIn post inside the card instead, paste its embed address (LinkedIn: ... menu, Embed this post, copy the src) into `embed` on that post. Filters are built from the tags. The magazine is a page-turning flipbook built from the site's own content (model, pathways, week, the posts, partners, advisors). Add an issue PDF to `read.issues[0].url` and the button becomes "Download PDF". `read.drafts` lists engagements from the content notes that still need verification (event title, date, organiser) before they are published as posts.
-- **Site-wide motion:** `wireMotion()` in main.js adds a sun that travels along a thin rail at the top as you scroll, plus cascading reveals for section headings, cards and photos on every page. To include another element, add its selector to `SEL` there. Everything is disabled for visitors who prefer reduced motion.
-- **Read page (blogs, newsletter, magazine):** edit `read` in data.js. Add a post to `posts` and set `status: "live"` with a `url` (until then it shows as Coming soon). Add magazine issues to `issues` with a PDF `url`. The newsletter form uses `config.formEndpoint`, or opens an email to engage@kashtieducare.com. The three post topics are placeholders to replace with your own.
-- **Stats:** the numbers in `stats` come from the site's own content (53 programmes, 18 partners, 8 STEM circuits, 5 formats). Swap in verified figures (students reached, mentors, etc.) when you have them.
+## Layout
 
-## Enquiry form
+```
+src/app/<route>/page.tsx   The 11 pages (/, why-kashti, people, programs, experiences, formats, institutions, partners, read, gallery, contact)
+                           Each exports its own <title>, description, canonical and Open Graph metadata.
+src/app/template.tsx       Shared chrome: icon sprite, skip link, announcement, header, footer, cookie banner
+src/app/globals.css        All styles (identical to legacy/css/styles.css)
+src/lib/data.js            ALL editable content: notices, downloads, programmes, partners, gallery, FAQ, ...
+src/legacy/engine.js       The original main.js (rendering + interactions), wrapped as initKashti() with cleanup
+src/components/Enhancer.tsx  Boots the engine after each navigation and tears it down on leave
+legacy/                    The original static site, for reference/diffing
+scripts/                   One-off converters used to generate the pages from legacy/*.html
+```
 
-With `config.formEndpoint` empty, the form opens the visitor's email app with everything filled in, addressed to engage@kashtieducare.com. To receive enquiries directly, paste a Formspree / Getform / Google Apps Script web-app URL into `formEndpoint`. The form POSTs standard form data (`role, name, org, email, phone, programme, learners, message, consent`).
+## Everyday edits
 
-## Images
+Same as before, but in `src/lib/data.js` (see the comments at the top of that file): post a notice, add a programme, people, partners, gallery photos, FAQ, blog posts. The enquiry form uses `config.formEndpoint`, or opens an email to engage@kashtieducare.com when empty.
 
-Photos and logos currently load from the live site (`https://kashtieducare.com/images/...`). To self-host them:
+## Notes
 
-1. Copy `public/images/` (and `public/logo.jpeg`) from the Next.js repo into this folder.
-2. In `js/data.js` set `img: ""`.
-3. Find and replace `https://kashtieducare.com/images/` with `images/` across the `.html` files.
+- Old `*.html` URLs permanently redirect to the clean routes (`/programs.html?theme=global` -> `/programs?theme=global`); canonical URLs are the clean ones.
+- Images and the logo still load from `https://kashtieducare.com` (set in `config.img`). To self-host, copy them into `public/` and update `config.img` and the logo `src` in the header/footer.
+- `reactStrictMode` is off on purpose: the engine is imperative DOM code and StrictMode's dev-only double mount would initialise it twice.
+- `/sitemap.xml` and `/robots.txt` are generated from `src/app/sitemap.ts` and `src/app/robots.ts`.
 
-Photos are shown whole (never cropped): each frame shows the full image, with a soft blurred copy filling any spare space. If an image can't load, the page shows a tinted placeholder with its caption, so the layout never breaks.
+## Google Sheet setup (form submissions)
 
-## Before launch, please review
+Both forms (Contact enquiry, Newsletter) POST to `/api/submit`, which validates and appends a row to the Google Sheet via an Apps Script web app. Enquiries go to an `Enquiries` tab, newsletter sign-ups to a `Newsletter` tab (created with headers on first use).
 
-- **Bios on the People page** were compiled from public sources (rishibhatnagar.in, coachsisodia.com, Muni International School coverage). Karan's LinkedIn couldn't be read, so his bio is written from Kashti's own story. Please confirm all four before launch.
-- **FAQ answers** (`faq` in data.js). The live site lists the questions but not the answers, so these were written from the site's own content. Fees, lead times and post-programme reports are kept general.
-- **Logo.** Every page uses the official `logo.jpeg` from kashtieducare.com. If that file can't load, the site falls back to a built-in wordmark.
-- **Testimonials.** Add student and teacher feedback to `testimonials` in data.js (`who: "student"` or `"teacher"`). Only one real quote exists so far.
-- **Partner strip.** The running strip uses the 18 logos already on the live site. Add brochure partners (ATMC, Decathlon, Signzy, Mukand, NIDHI, etc.) to `partners` in data.js once their logo files are in `images/logos/`.
-- **Social links.** None exist on the live site, so none were added.
-- **Left out on purpose.** The mockups contain sample content that isn't on the live site: named principals and testimonials, expert profiles (Dr. Arvind Mehta, etc.), stats like "25,000+ students", partner logos such as Amity, IISc, Tata Technologies and Dubai Holding, the MSIT and Shri Vishwakarma awards, and placeholder contact details. The layouts for these are all built. Add real entries to `testimonials`, `stats` and `partners` in data.js as they're confirmed.
+1. Open the sheet -> Extensions -> Apps Script. Replace the contents with `google-apps-script/Code.gs`.
+2. Project Settings -> Script properties -> add `SECRET` = a long random string.
+3. Deploy -> New deployment -> type Web app -> Execute as: Me, Who has access: Anyone -> Deploy, authorise, copy the `/exec` URL.
+4. Put `GOOGLE_SCRIPT_URL` (that URL) and `GOOGLE_SCRIPT_SECRET` (the same string) in `.env.local` and in Vercel's environment variables, then redeploy. See `.env.example`.
+
+If the variables are missing the API returns 503 and the form shows its "didn't send" message with the email fallback.
+
+### Confirmation emails
+
+`Code.gs` also emails the visitor right after their row is saved: a branded "thank you" (with a summary of their enquiry) for the Contact form, and a welcome email for the Newsletter. They are sent from the Google account that owns the script (display name "Kashti Educare", replies go to engage@kashtieducare.com). A failed email never blocks the sheet write or the form.
+
+After pasting the updated `Code.gs`: run `doPost` once from the editor (or any function) to approve the new permissions (send email, external requests), then **Deploy -> Manage deployments -> pencil -> Version: New version -> Deploy**. The `/exec` URL stays the same. Free Gmail accounts can send about 100 such emails a day (Google Workspace about 1,500).
+
+Every submission also emails `engage@kashtieducare.com` ("New enquiry: ..." / "New newsletter sign-up: ...") with all the details, a "Reply" button (replies go straight to the visitor) and a link to the sheet. That makes 2 emails per submission, so a free Gmail account covers roughly 50 submissions a day. The logo is bundled inside `Code.gs` (`LOGO_B64`), so emails never depend on the website being reachable.
+
+## Admin portal and CMS (`/admin`)
+
+A password-protected portal that uses the same Google Sheet as its database.
+
+**What it does**
+- **Submissions inbox**: every enquiry and newsletter sign-up, with a status (New, Contacted, In discussion, Won, Closed, Spam), private notes, reply link, CSV export and delete.
+- **Content editor**: 25 sections (announcement bar, contact details, notice board, downloads, featured stories, themes, the 53-programme catalogue, people, council, partners, values, stats, testimonials, FAQs, gallery, blog/newsletter/magazine and more). Edits are saved to the sheet's `Content` tab as overrides on top of the built-in content in `src/lib/data.js`. **Reset to original** removes the override. Every change is logged in the `Changelog` tab.
+- Saves go live within seconds (cache tag `content`); the site otherwise refreshes at most every 60 s.
+
+**Setup**
+1. Paste the latest `google-apps-script/Code.gs` into Apps Script and **Deploy > Manage deployments > Edit > New version > Deploy** (the URL stays the same). This adds the admin actions and the Status/Notes columns.
+2. Add these environment variables (`.env.local` and Vercel > Settings > Environment Variables), then redeploy:
+   - `GOOGLE_SCRIPT_URL`, `GOOGLE_SCRIPT_SECRET` (as before)
+   - `ADMIN_PASSWORD`: a long password
+   - `ADMIN_SESSION_SECRET`: 32+ random characters
+3. Open `/admin` and sign in.
+
+**Security**: HMAC-signed HttpOnly session cookie (12 h), constant-time password check, lockout after 5 failures (15 min), same-origin and JSON-only writes, `noindex`, and the sheet is only reachable through the secret-guarded Apps Script.
+
+**Not editable yet**: page copy written directly in the page files (hero headlines, section paragraphs, footer) and image uploads (images are URL fields). Phase 2 could add these.
