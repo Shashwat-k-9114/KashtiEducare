@@ -62,7 +62,7 @@ export default function ReadPage() {
               <div className="ph ph-fit " data-label="Students at ISRO">
                 <img
                   className="ph-fill"
-                  src="https://kashtieducare.comhttps://kashtieducare.com/images/gallery/isro-visit-1.jpeg"
+                  src="https://kashtieducare.com/images/gallery/isro-visit-1.jpeg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -70,7 +70,7 @@ export default function ReadPage() {
                 />
                 <img
                   className="ph-img"
-                  src="https://kashtieducare.comhttps://kashtieducare.com/images/gallery/isro-visit-1.jpeg"
+                  src="https://kashtieducare.com/images/gallery/isro-visit-1.jpeg"
                   alt="Students at ISRO"
                   loading="lazy"
                   decoding="async"

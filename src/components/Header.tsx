@@ -21,7 +21,7 @@ const Icon = ({ id }: { id: string }) => (
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="Kashti Educare home">
-      <img className="brand-img" src="https://kashtieducare.com/logo.jpeg" alt="Kashti Educare" width={150} height={56} decoding="async" />
+      <img className="brand-img" src="https://kashtieducare.com/logo.png" alt="Kashti Educare" width={150} height={56} decoding="async" />
       <span className="brand-word" aria-hidden="true">
         <span className="b-k">
           KASHTI

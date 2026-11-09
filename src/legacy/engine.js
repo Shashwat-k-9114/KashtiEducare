@@ -1401,7 +1401,7 @@ export function initKashti(D) {
       const tags = ["#KashtiEducare", "#" + p.tag.replace(/&/g, "And").replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("")].join(" ");
       return `<article class="li-post">
         <header class="li-head">
-          <span class="li-avatar"><img src="${esc(D.config.img)}/logo.jpeg" alt="" width="44" height="44" loading="lazy"></span>
+          <span class="li-avatar"><img src="${esc(D.config.img)}/logo.png" alt="" width="44" height="44" loading="lazy"></span>
           <span class="li-who"><b>Kashti Educare</b><small>Experiential learning for schools and universities</small><small class="li-meta">${esc(p.tag)} · LinkedIn</small></span>
           <span class="li-in" aria-hidden="true">in</span>
         </header>

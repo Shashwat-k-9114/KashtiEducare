@@ -1040,7 +1040,7 @@ export default function IndexPage() {
                       {" "}
                       <img
                         className="brand-img"
-                        src="https://kashtieducare.com/logo.jpeg"
+                        src="https://kashtieducare.com/logo.png"
                         alt="Kashti Educare"
                         width="150"
                         height="56"
