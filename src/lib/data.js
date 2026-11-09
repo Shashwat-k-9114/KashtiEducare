@@ -31,6 +31,33 @@ export const KASHTI = {
     href: "/programs?theme=global#catalogue"
   },
 
+  /* ---------- CONNECT (/connect, the page behind the QR code on brochures and visiting cards) ----------
+     Add or change social links here (or in the admin portal: Connect page). Only links with an address are shown. */
+  connect: {
+    eyebrow: "Real world · Real learning · Real impact",
+    headline: "What if the classroom had no walls?",
+    intro: "You scanned a code. This is where Kashti Educare lives: our programmes, our stories, our people, and the quickest ways to reach us.",
+    socials: [
+      { label: "Instagram", handle: "@kashti_educare", url: "https://www.instagram.com/kashti_educare/", icon: "instagram" }
+    ],
+    paths: [
+      { label: "I lead a school", teaser: "Give students a world beyond the timetable: STEM tours, leadership camps, career exposure and global immersion, designed around your calendar.", cta: "See school programmes", href: "/programs?audience=school#catalogue" },
+      { label: "I run a college or university", teaser: "Industry visits, startup immersion, faculty programmes and international exposure that put your learners where the work actually happens.", cta: "See higher-ed programmes", href: "/programs?audience=he#catalogue" },
+      { label: "I'm a parent or student", teaser: "Curious what this could look like for you? Tell us, and we will point you to the right experience or help you bring it to your school.", cta: "Say hello", href: "/contact" },
+      { label: "I'd like to partner", teaser: "Industry, institutions, community and media: there is a place for you in how Kashti builds learning that matters.", cta: "Meet our partners", href: "/partners" }
+    ],
+    explore: [
+      { label: "Why Kashti", note: "The idea behind it all", href: "/why-kashti" },
+      { label: "Programs", note: "The full catalogue", href: "/programs" },
+      { label: "Experiences", note: "How a Kashti journey works", href: "/experiences" },
+      { label: "Formats", note: "One day to residential", href: "/formats" },
+      { label: "Gallery", note: "Moments from the field", href: "/gallery" },
+      { label: "Read", note: "Stories, notes and ideas", href: "/read" },
+      { label: "People", note: "The people behind the idea", href: "/people" },
+      { label: "Partners", note: "Who we build with", href: "/partners" }
+    ]
+  },
+
   /* ---------- READ: BLOGS, NEWSLETTER, MAGAZINE ----------
      Blogs: add a post at the top of `posts`. Set `url` to the article link
      (or a page of your own) and `status` to "live". While `status` is "soon"

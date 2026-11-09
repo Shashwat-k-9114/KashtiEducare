@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 // Where each section shows up, so "View on site" opens the right page.
 const VIEW: Record<string, string> = {
-  announcement: "/", config: "/contact", notices: "/#notices", downloads: "/#notices", featured: "/#notices",
+  announcement: "/", connect: "/connect", config: "/contact", notices: "/#notices", downloads: "/#notices", featured: "/#notices",
   themes: "/programs", programmes: "/programs#catalogue", heGroups: "/programs", formatLabels: "/programs", roadmap: "/", modelWeek: "/#week",
   expeditions: "/#notices", people: "/people", peopleUpcoming: "/people", council: "/institutions", partners: "/partners", partnerTabs: "/partners",
   standFor: "/why-kashti", values: "/why-kashti", stats: "/why-kashti", testimonials: "/", faq: "/programs#faq", gallery: "/gallery", galleryCats: "/gallery", read: "/read",

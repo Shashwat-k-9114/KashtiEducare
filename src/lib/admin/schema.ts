@@ -79,6 +79,35 @@ export const SECTIONS: Section[] = [
     ] },
   },
   {
+    key: "connect", title: "Connect page (QR code)", group: "site", icon: "star",
+    desc: "The page behind the QR code on brochures and visiting cards: headline, social links, audience paths and site links.", where: "kashtieducare.com/connect",
+    root: { type: "object", label: "Connect page", fields: [
+      text("eyebrow", "Small line above the headline"),
+      text("headline", "Headline", { required: true, help: "The first thing people read after scanning. A question that sparks curiosity works well." }),
+      area("intro", "Intro", { rows: 3 }),
+      { type: "list", key: "socials", label: "Social links", titleKey: "label", subtitleKey: "handle", addLabel: "Add social link", help: "Only links with an address are shown on the page.", item: { type: "object", label: "Social link", fields: [
+        { type: "select", key: "icon", label: "Network", required: true, options: [
+          { value: "instagram", label: "Instagram" }, { value: "linkedin", label: "LinkedIn" }, { value: "youtube", label: "YouTube" },
+          { value: "facebook", label: "Facebook" }, { value: "x", label: "X (Twitter)" }, { value: "whatsapp", label: "WhatsApp channel" }, { value: "globe", label: "Other website" },
+        ] },
+        text("label", "Name", { required: true, placeholder: "LinkedIn" }),
+        text("handle", "Handle or tagline", { placeholder: "@kashti_educare" }),
+        url("url", "Address", { required: true, help: "The full https:// link to the profile or page." }),
+      ] } },
+      { type: "list", key: "paths", label: "“Which sounds like you?” paths", titleKey: "label", addLabel: "Add path", item: { type: "object", label: "Path", fields: [
+        text("label", "Label", { required: true, placeholder: "I lead a school" }),
+        area("teaser", "What they see when they tap it", { required: true }),
+        text("cta", "Button text", { required: true }),
+        url("href", "Button link", { required: true }),
+      ] } },
+      { type: "list", key: "explore", label: "Explore the site links", titleKey: "label", subtitleKey: "note", addLabel: "Add link", item: { type: "object", label: "Link", fields: [
+        text("label", "Name", { required: true }),
+        text("note", "One-line description"),
+        url("href", "Link", { required: true }),
+      ] } },
+    ] },
+  },
+  {
     key: "config", title: "Contact details", group: "site", icon: "phone",
     desc: "Email, phone and location used by forms and fallbacks.", where: "Forms, footer fallbacks",
     root: { type: "object", label: "Contact details", fields: [
