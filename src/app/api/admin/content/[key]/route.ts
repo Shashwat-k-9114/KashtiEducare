@@ -1,4 +1,5 @@
 import { revalidateTag } from "next/cache";
+import { after } from "next/server";
 import { guard } from "@/lib/admin/auth";
 import { normalize, validate } from "@/lib/admin/normalize";
 import { SECTION_MAP } from "@/lib/admin/schema";
@@ -10,6 +11,19 @@ const MAX_BYTES = 400_000;
 const fail = (status: number, error: string, extra: object = {}) => Response.json({ ok: false, error, ...extra }, { status, headers: { "Cache-Control": "no-store" } });
 
 type Ctx = { params: Promise<{ key: string }> };
+
+const PAGES = ["/", "/why-kashti", "/people", "/programs", "/experiences", "/formats", "/institutions", "/partners", "/read", "/gallery", "/contact"];
+
+/** After an edit, re-request the public pages so the cache is rebuilt before a visitor (or the admin) looks. */
+function warm(req: Request) {
+  const origin = new URL(req.url).origin;
+  after(async () => {
+    for (let round = 0; round < 2; round++) {
+      await Promise.all(PAGES.map((p) => fetch(origin + p, { cache: "no-store" }).catch(() => null)));
+      await new Promise((r) => setTimeout(r, 2500));
+    }
+  });
+}
 
 /** Save a section. The value is re-normalised and re-validated here: the browser is not trusted. */
 export async function PUT(req: Request, { params }: Ctx) {
@@ -40,6 +54,7 @@ export async function PUT(req: Request, { params }: Ctx) {
     return fail(502, (e as Error).message);
   }
   revalidateTag("content", { expire: 0 }); // live site picks it up on the next request
+  warm(req);
   return Response.json({ ok: true, value: clean, updated: new Date().toISOString() }, { headers: { "Cache-Control": "no-store" } });
 }
 
@@ -56,5 +71,6 @@ export async function DELETE(req: Request, { params }: Ctx) {
     return fail(502, (e as Error).message);
   }
   revalidateTag("content", { expire: 0 });
-  return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
+  warm(req);
+  return Response.json({ ok: true },{ headers: { "Cache-Control": "no-store" } });
 }
