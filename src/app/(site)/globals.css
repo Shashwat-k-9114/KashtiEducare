@@ -1180,6 +1180,9 @@ ul, ol { padding: 0; list-style: none; }
 .advisor .pp-name { font-size: 1.45rem; }
 .advisor .pp-headline { font-size: 1rem; color: var(--ink); }
 .advisor .pp-bio { font-size: .93rem; color: var(--muted); }
+.bio-toggle { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.bio-toggle:hover { color: var(--ink); }
+.bio-more[hidden], .bio-dots[hidden] { display: none; }
 .advisor .pp-links { margin-top: auto; padding-top: 20px; justify-content: flex-start; }
 
 .open-seats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: stretch; }

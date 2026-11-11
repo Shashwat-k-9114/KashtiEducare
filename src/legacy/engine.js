@@ -217,6 +217,17 @@ export function initKashti(D) {
     el.innerHTML = PEOPLE.map((p) => `<a class="face" href="#${pid(p)}" style="--pc:${p.color}">${portrait(p, "md")}<b>${esc(p.name)}</b><span class="r">${esc(p.role)}</span></a>`).join("") ;
   };
 
+  /* bio: first 20 words, the rest behind "Read more" */
+  const bio = (p) => {
+    const w = String(p.bio || "").trim().split(/\s+/).filter(Boolean);
+    if (w.length <= 20) return `<p class="pp-bio">${esc(w.join(" "))}</p>`;
+    return `<p class="pp-bio">${esc(w.slice(0, 20).join(" "))}<span class="bio-dots">…</span><span class="bio-more" hidden> ${esc(w.slice(20).join(" "))}</span> <button type="button" class="bio-toggle" aria-expanded="false">Read more</button></p>`;
+  };
+  const bindBio = (el) => $$(".bio-toggle", el).forEach((b) => b.addEventListener("click", () => {
+    const p = b.parentElement, more = $(".bio-more", p), dots = $(".bio-dots", p), open = more.hidden;
+    more.hidden = !open; dots.hidden = open; b.textContent = open ? "Read less" : "Read more"; b.setAttribute("aria-expanded", String(open));
+  }));
+
   R.founder = (el) => {
     el.innerHTML = PEOPLE.filter((p) => p.group === "founder").map((p) => `<article class="founder-card" id="${pid(p)}" style="--pc:${p.color}">
         <div class="fc-left">${portrait(p, "xl")}<div class="pp-links">${links(p)}</div></div>
@@ -237,12 +248,13 @@ export function initKashti(D) {
         ${portrait(p, "lg")}
         <div class="ad-body">
           <div class="ad-head"><p class="pp-role">${esc(p.role)}</p><h3 class="pp-name">${esc(p.name)}</h3><p class="pp-headline">${esc(p.headline)}</p></div>
-          <p class="pp-bio">${esc(p.bio)}</p>
+          ${bio(p)}
           ${highlights(p)}
           ${tags(p)}
           <div class="pp-links">${links(p)}</div>
         </div>
       </article>`).join("");
+    bindBio(el);
   };
 
   R["people-upcoming"] = (el) => {
