@@ -62,12 +62,12 @@ export default function WhyKashtiPage() {
             {" "}
             <div
               className="ph ph-fit "
-              data-label="Kashti at the School Leaders' Summit"
+              data-label="ICOSA School Conclave 2026"
               style={{ "--c": "#0F3E9E" } as React.CSSProperties}
             >
               <img
                 className="ph-fill"
-                src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
+                src="/images/gallery/icosa-school-conclave.jpg"
                 alt=""
                 aria-hidden="true"
                 fetchPriority="high"
@@ -75,8 +75,8 @@ export default function WhyKashtiPage() {
               />
               <img
                 className="ph-img"
-                src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
-                alt="Kashti at the School Leaders' Summit"
+                src="/images/gallery/icosa-school-conclave.jpg"
+                alt="ICOSA School Conclave 2026"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -104,12 +104,12 @@ export default function WhyKashtiPage() {
             </div>{" "}
             <div
               className="ph ph-fit "
-              data-label="Kashti team members at a community service initiative"
+              data-label="Kashti at the School Leaders' Summit"
               style={{ "--c": "#CF4A6E" } as React.CSSProperties}
             >
               <img
                 className="ph-fill"
-                src="https://kashtieducare.com/images/gallery/giving-back-to-society.jpeg"
+                src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
                 alt=""
                 aria-hidden="true"
                 fetchPriority="high"
@@ -117,8 +117,8 @@ export default function WhyKashtiPage() {
               />
               <img
                 className="ph-img"
-                src="https://kashtieducare.com/images/gallery/giving-back-to-society.jpeg"
-                alt="Kashti team members at a community service initiative"
+                src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
+                alt="Kashti at the School Leaders' Summit"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -160,12 +160,12 @@ export default function WhyKashtiPage() {
               {" "}
               <div
                 className="ph ph-fit "
-                data-label="A programme session at IILM"
+                data-label="Dr. Om Pathak addressing the ICOSA School Conclave"
                 style={{ "--c": "#6544CC" } as React.CSSProperties}
               >
                 <img
                   className="ph-fill"
-                  src="https://kashtieducare.com/images/gallery/iilm-session.jpeg"
+                  src="/images/gallery/om-pathak.jpg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -173,20 +173,20 @@ export default function WhyKashtiPage() {
                 />
                 <img
                   className="ph-img"
-                  src="https://kashtieducare.com/images/gallery/iilm-session.jpeg"
-                  alt="A programme session at IILM"
+                  src="/images/gallery/om-pathak.jpg"
+                  alt="Dr. Om Pathak addressing the ICOSA School Conclave"
                   loading="lazy"
                   decoding="async"
                 />
               </div>{" "}
               <div
                 className="ph ph-fit "
-                data-label="Kashti group at Corbett National Park"
+                data-label="Kashti team at the Embassy of Mexico"
                 style={{ "--c": "#3D8B33" } as React.CSSProperties}
               >
                 <img
                   className="ph-fill"
-                  src="https://kashtieducare.com/images/gallery/expedition-group-2.jpg"
+                  src="/images/gallery/mexico-embassy.jpg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -194,20 +194,20 @@ export default function WhyKashtiPage() {
                 />
                 <img
                   className="ph-img"
-                  src="https://kashtieducare.com/images/gallery/expedition-group-2.jpg"
-                  alt="Kashti group at Corbett National Park"
+                  src="/images/gallery/mexico-embassy.jpg"
+                  alt="Kashti team at the Embassy of Mexico"
                   loading="lazy"
                   decoding="async"
                 />
               </div>{" "}
               <div
                 className="ph ph-fit "
-                data-label="A visit to Maharaja Surajmal Institute of Technology"
+                data-label="Kashti session with Furusawa Language Academy at Bharati Vidyapeeth"
                 style={{ "--c": "#0F3E9E" } as React.CSSProperties}
               >
                 <img
                   className="ph-fill"
-                  src="https://kashtieducare.com/images/gallery/msit-visit.jpeg"
+                  src="/images/gallery/bvp-1.jpg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -215,8 +215,8 @@ export default function WhyKashtiPage() {
                 />
                 <img
                   className="ph-img"
-                  src="https://kashtieducare.com/images/gallery/msit-visit.jpeg"
-                  alt="A visit to Maharaja Surajmal Institute of Technology"
+                  src="/images/gallery/bvp-1.jpg"
+                  alt="Kashti session with Furusawa Language Academy at Bharati Vidyapeeth"
                   loading="lazy"
                   decoding="async"
                 />
@@ -279,12 +279,12 @@ export default function WhyKashtiPage() {
             <figure className="nep-photo">
               <div
                 className="ph ph-fit "
-                data-label="Kashti at the School Leaders' Summit"
+                data-label="Aligned with India's National Education Policy 2020"
                 style={{ "--c": "#0F3E9E" } as React.CSSProperties}
               >
                 <img
                   className="ph-fill"
-                  src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
+                  src="/images/gallery/nep-2020-infographic.jpg"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -292,19 +292,31 @@ export default function WhyKashtiPage() {
                 />
                 <img
                   className="ph-img"
-                  src="https://kashtieducare.com/images/gallery/school-leaders-summit.jpeg"
-                  alt="Kashti at the School Leaders' Summit"
+                  src="/images/gallery/nep-2020-infographic.jpg"
+                  alt="Aligned with India's National Education Policy 2020: holistic development, experiential learning, skill development, multidisciplinary learning, Indian knowledge systems, inclusion and equity, technology integration, career awareness and vocational exposure"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
-              <figcaption>
-                <svg className="icon " aria-hidden="true">
-                  <use href="#i-school" />
-                </svg>
-                Kashti at the School Leaders' Summit
-              </figcaption>
             </figure>{" "}
+            <ul className="nep-tiles">
+              <li>
+                <b>Explore</b>
+                <span>Real-world contexts</span>
+              </li>
+              <li>
+                <b>Build</b>
+                <span>Skills &amp; solutions</span>
+              </li>
+              <li>
+                <b>Collaborate</b>
+                <span>Across domains</span>
+              </li>
+              <li>
+                <b>Become</b>
+                <span>Future-ready citizens</span>
+              </li>
+            </ul>{" "}
             <div className="principles">
               {" "}
               <article className="principle">

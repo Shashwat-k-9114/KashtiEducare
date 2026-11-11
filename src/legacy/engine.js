@@ -391,21 +391,11 @@ export function initKashti(D) {
   };
   $$("[data-partners]").forEach((panel) => {
     const tabs = $(".ptabs", panel), grid = $(".logo-grid", panel);
-    const keys = Object.keys(D.partnerTabs);
-    tabs.innerHTML = keys.map((k, i) => `<button type="button" role="tab" id="pt-${k}-${Math.random().toString(36).slice(2, 6)}" aria-selected="${i === 0}" data-k="${k}">${esc(D.partnerTabs[k])}</button>`).join("");
-    const show = (k) => {
-      grid.innerHTML = D.partners[k].map(logoTile).join("");
-      sweepImages(grid);
-    };
-    $$("button", tabs).forEach((b, i, all) => {
-      b.addEventListener("click", () => { all.forEach((x) => x.setAttribute("aria-selected", String(x === b))); show(b.dataset.k); });
-      b.addEventListener("keydown", (e) => {
-        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-        const n = all[(i + (e.key === "ArrowRight" ? 1 : -1) + all.length) % all.length];
-        n.focus(); n.click();
-      });
-    });
-    show(keys[0]);
+    /* one generic grid: no category tabs */
+    if (tabs) tabs.remove();
+    grid.removeAttribute("role");
+    grid.innerHTML = Object.values(D.partners).flat().map(logoTile).join("");
+    sweepImages(grid);
   });
 
   /* =====================================================================

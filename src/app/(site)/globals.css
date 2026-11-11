@@ -1636,14 +1636,16 @@ main > section:not(:first-child) { content-visibility: auto; contain-intrinsic-s
 /* ---------- why kashti: photos beside text ---------- */
 .icon-cards.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .gain-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(20px, 3vw, 36px); align-items: stretch; }
-.gain-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1.3fr 1fr; gap: 12px; min-height: 420px; }
+.gain-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: start; }
+.gain-photos .ph { aspect-ratio: 4 / 3; }
+.gain-photos .ph:first-child { aspect-ratio: 16 / 9; }
 .gain-photos .ph { border-radius: 18px; box-shadow: var(--sh-2); }
 .gain-photos .ph:first-child { grid-column: 1 / -1; }
 .nep-photo { position: relative; margin: 0 0 14px; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-2); background: #fff; }
-.nep-photo .ph { aspect-ratio: 16 / 8; }
+.nep-photo .ph { aspect-ratio: 16 / 9; }
 .nep-photo figcaption { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-size: .84rem; font-weight: 700; color: var(--ink); }
 .nep-photo figcaption .icon { width: 18px; height: 18px; color: var(--teal); }
-@media (max-width: 900px) { .gain-grid { grid-template-columns: minmax(0, 1fr); } .gain-photos { min-height: 300px; } .icon-cards.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .gain-grid { grid-template-columns: minmax(0, 1fr); } .gain-photos { min-height: 0; } .icon-cards.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .icon-cards.cols-3 { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- people: join card closes the page ---------- */
@@ -2154,3 +2156,10 @@ a.blog-card:hover, .blog-card:hover { translate: 0 -6px; box-shadow: var(--sh-2)
 .li-post { height: 100%; }
 .li-actions { margin-top: auto; }
 .li-embed iframe { display: block; border: 0; background: #fff; }
+
+/* NEP: four small tiles under the infographic */
+.nep-tiles { list-style: none; margin: 0 0 14px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.nep-tiles li { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--line-2); box-shadow: var(--sh-1, 0 2px 8px rgba(11, 42, 102, .06)); border-top: 3px solid var(--saffron); }
+.nep-tiles b { font-size: .95rem; font-weight: 800; color: var(--ink); }
+.nep-tiles span { font-size: .8rem; color: var(--muted); line-height: 1.35; }
+@media (max-width: 640px) { .nep-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
