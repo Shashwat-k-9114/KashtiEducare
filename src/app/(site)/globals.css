@@ -263,9 +263,9 @@ ul, ol { padding: 0; list-style: none; }
     linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, #fff), color-mix(in srgb, var(--c) 38%, #EAF3FC));
 }
 .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-/* fit mode: the whole photo is visible; a blurred copy fills any spare space */
-.ph-fit > .ph-fill { object-fit: cover; filter: blur(18px) saturate(1.25); transform: scale(1.18); opacity: .9; z-index: 1; will-change: transform; }
-.ph-fit > .ph-img { object-fit: contain; z-index: 2; }
+/* fit mode: photos fill their frame cleanly (supply exact-ratio images); the blurred backdrop is no longer used */
+.ph-fit > .ph-fill { display: none; }
+.ph-fit > .ph-img { object-fit: cover; object-position: 50% 40%; z-index: 2; }
 .ph::before {
   content: attr(data-label);
   position: absolute; inset: auto 14px 12px 14px; z-index: 0;
