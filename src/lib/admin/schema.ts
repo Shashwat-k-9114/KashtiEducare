@@ -44,7 +44,7 @@ export interface Section {
 export const GROUPS: { id: GroupId; title: string; blurb: string }[] = [
   { id: "site", title: "Site-wide", blurb: "Announcement bar, contact details, notices and downloads." },
   { id: "programmes", title: "Programmes", blurb: "Themes, the 53-programme catalogue, the sample year and the model week." },
-  { id: "people", title: "People & partners", blurb: "Founder, advisors, council and partner logos." },
+  { id: "people", title: "People & partners", blurb: "People, council and partner logos." },
   { id: "story", title: "Story & proof", blurb: "What Kashti stands for, numbers, testimonials and FAQs." },
   { id: "media", title: "Gallery & reading", blurb: "Field photos, blogs, newsletter and the magazine." },
 ];
@@ -241,11 +241,10 @@ export const SECTIONS: Section[] = [
 
   // ------------------------------------------------------------------ people & partners
   {
-    key: "people", title: "Founder & advisors", group: "people", icon: "users",
+    key: "people", title: "People", group: "people", icon: "users",
     desc: "People cards and full profiles.", where: "People page, home visionaries",
     root: { type: "list", label: "People", titleKey: "name", subtitleKey: "role", addLabel: "Add person", item: { type: "object", label: "Person", fields: [
       text("name", "Name", { required: true }),
-      { type: "select", key: "group", label: "Group", required: true, options: [{ value: "founder", label: "Founder" }, { value: "advisor", label: "Advisor" }] },
       text("role", "Role"),
       text("initials", "Initials", { help: "Shown if there is no photo." }),
       color("color", "Card colour"),

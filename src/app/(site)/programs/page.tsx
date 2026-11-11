@@ -66,12 +66,12 @@ export default function ProgramsPage() {
             {" "}
             <div
               className="ph ph-fit "
-              data-label="A visit to ISRO"
+              data-label="Award ceremony at an education conclave"
               style={{ "--c": "#2150C2" } as React.CSSProperties}
             >
               <img
                 className="ph-fill"
-                src="https://kashtieducare.com/images/gallery/isro-visit-2.jpeg"
+                src="/images/gallery/programs-1.jpg"
                 alt=""
                 aria-hidden="true"
                 fetchPriority="high"
@@ -79,20 +79,20 @@ export default function ProgramsPage() {
               />
               <img
                 className="ph-img"
-                src="https://kashtieducare.com/images/gallery/isro-visit-2.jpeg"
-                alt="A visit to ISRO"
+                src="/images/gallery/programs-1.jpg"
+                alt="Award ceremony at an education conclave"
                 fetchPriority="high"
                 decoding="async"
               />
             </div>{" "}
             <div
               className="ph ph-fit "
-              data-label="Kashti group at Corbett National Park"
+              data-label="Audience at an education conclave"
               style={{ "--c": "#3D8B33" } as React.CSSProperties}
             >
               <img
                 className="ph-fill"
-                src="https://kashtieducare.com/images/gallery/expedition-group-2.jpg"
+                src="/images/gallery/programs-2.jpg"
                 alt=""
                 aria-hidden="true"
                 fetchPriority="high"
@@ -100,20 +100,20 @@ export default function ProgramsPage() {
               />
               <img
                 className="ph-img"
-                src="https://kashtieducare.com/images/gallery/expedition-group-2.jpg"
-                alt="Kashti group at Corbett National Park"
+                src="/images/gallery/programs-2.jpg"
+                alt="Audience at an education conclave"
                 fetchPriority="high"
                 decoding="async"
               />
             </div>{" "}
             <div
               className="ph ph-fit "
-              data-label="A discussion session at IILM"
+              data-label="Learners at a science centre exhibit"
               style={{ "--c": "#6544CC" } as React.CSSProperties}
             >
               <img
                 className="ph-fill"
-                src="https://kashtieducare.com/images/gallery/iilm-discussion.jpeg"
+                src="/images/gallery/programs-3.jpg"
                 alt=""
                 aria-hidden="true"
                 fetchPriority="high"
@@ -121,13 +121,12 @@ export default function ProgramsPage() {
               />
               <img
                 className="ph-img"
-                src="https://kashtieducare.com/images/gallery/iilm-discussion.jpeg"
-                alt="A discussion session at IILM"
+                src="/images/gallery/programs-3.jpg"
+                alt="Learners at a science centre exhibit"
                 fetchPriority="high"
                 decoding="async"
               />
             </div>{" "}
-            <p className="script hm-note">53 ways to learn.</p>{" "}
           </div>{" "}
         </div>{" "}
       </section>{" "}

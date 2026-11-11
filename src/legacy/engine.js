@@ -231,8 +231,8 @@ export function initKashti(D) {
       </article>`).join("");
   };
 
-  R.advisors = (el) => {
-    el.innerHTML = PEOPLE.filter((p) => p.group === "advisor").map((p) => `<article class="advisor" id="${pid(p)}" style="--pc:${p.color}">
+  R.team = (el) => {
+    el.innerHTML = PEOPLE.map((p) => `<article class="advisor" id="${pid(p)}" style="--pc:${p.color}">
         <div class="ad-top" aria-hidden="true"></div>
         ${portrait(p, "lg")}
         <div class="ad-body">
@@ -269,7 +269,7 @@ export function initKashti(D) {
 
   /* home: Led by the visionaries */
   R.visionaries = (el) => {
-    el.innerHTML = (D.people || []).filter((p) => p.group === "advisor").map((p) => `<article class="vision-card" style="--pc:${p.color}">
+    el.innerHTML = (D.people || []).map((p) => `<article class="vision-card" style="--pc:${p.color}">
         ${portrait(p, "lg")}
         <div class="vc-body">
           <h3>${esc(p.name)}</h3>
@@ -1437,7 +1437,7 @@ export function initKashti(D) {
     const posts = (D.read && D.read.posts) || [];
     const themes = D.themes || [];
     const W = (D.modelWeek && D.modelWeek.days) || [];
-    const adv = (D.people || []).filter((p) => p.group === "advisor" || p.group === "founder");
+    const adv = (D.people || []);
     const partners = [].concat(...Object.values(D.partners || {})).map((p) => p.name);
     let pn = 1;
     const foot = (n) => `<span class="fp-foot"><b>KASHTI</b><i>${n}</i></span>`;

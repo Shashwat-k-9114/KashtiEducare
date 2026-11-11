@@ -1181,15 +1181,13 @@ export default function IndexPage() {
       </section>{" "}
       <section
         className="partner-strip"
-        aria-label="Our partners and collaborators"
+        aria-label="Our engagements"
       >
         {" "}
         <div className="ps-inner">
           {" "}
           <p className="ps-label">
-            {"Our partners &"}
-            <br />
-            collaborators
+            Our engagements
           </p>{" "}
           <div className="ps-viewport">
             <div className="ps-track" data-render="partner-marquee" />

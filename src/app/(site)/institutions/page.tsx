@@ -192,7 +192,7 @@ export default function InstitutionsPage() {
               </span>
               <div>
                 <h3>{"Experts & Innovation"}</h3>
-                <p>Advisors, researchers and thought leaders.</p>
+                <p>Researchers and thought leaders.</p>
               </div>
             </article>{" "}
             <article className="eco-card">
@@ -242,7 +242,7 @@ export default function InstitutionsPage() {
               and delivered.
             </p>{" "}
             <a className="link-arrow" href="/people">
-              {"Meet the founder and advisors "}
+              {"Meet our people "}
               <svg className="icon " aria-hidden="true">
                 <use href="#i-arrow" />
               </svg>

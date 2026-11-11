@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "People | Kashti Educare" },
   description:
-    "The people behind Kashti Educare: founder Karan Kumar Singh and advisors Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
+    "The people behind Kashti Educare: Karan Kumar Singh, Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
   alternates: { canonical: "/people" },
   openGraph: {
     type: "website",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     siteName: "Kashti Educare",
     title: "People | Kashti Educare",
     description:
-      "The people behind Kashti Educare: founder Karan Kumar Singh and advisors Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
+      "The people behind Kashti Educare: Karan Kumar Singh, Dr. Rishi Mohan Bhatnagar, Dr. Ashok Kumar Thakur and Coach Aditya Sisodia.",
   },
 };
 
@@ -39,12 +39,12 @@ export default function PeoplePage() {
             </h1>{" "}
             <p className="lede">
               Kashti is built by people who believe learning should not end at
-              the classroom door. Meet our founder and the advisors who help
-              shape every programme.
+              the classroom door. Meet the people who help shape every
+              programme.
             </p>{" "}
             <div className="btn-row">
-              <a className="btn btn-primary" href="#advisors">
-                {"Meet the advisors "}
+              <a className="btn btn-primary" href="#team">
+                {"Meet the team "}
                 <svg className="icon " aria-hidden="true">
                   <use href="#i-arrow" />
                 </svg>
@@ -60,13 +60,13 @@ export default function PeoplePage() {
           <div className="faces" data-render="people-faces" />{" "}
         </div>{" "}
       </section>{" "}
-      <section className="section bg-wash" id="advisors">
+      <section className="section bg-wash" id="team">
         {" "}
         <div className="container">
           {" "}
           <div className="section-head">
             {" "}
-            <p className="eyebrow">Advisors</p>{" "}
+            <p className="eyebrow">Our people</p>{" "}
             <h2 className="h2">
               <span className="t1">The force behind</span>
               <span className="t2">our vision.</span>
@@ -76,22 +76,7 @@ export default function PeoplePage() {
               designed.
             </p>{" "}
           </div>{" "}
-          <div className="advisors" data-render="advisors" />{" "}
-        </div>{" "}
-      </section>{" "}
-      <section className="section bg-white" id="founder">
-        {" "}
-        <div className="container">
-          {" "}
-          <div className="section-head">
-            {" "}
-            <p className="eyebrow">The founder</p>{" "}
-            <h2 className="h2">
-              <span className="t1">Where the idea</span>
-              <span className="t2">began.</span>
-            </h2>{" "}
-          </div>{" "}
-          <div data-render="founder" />{" "}
+          <div className="advisors" data-render="team" />{" "}
         </div>{" "}
       </section>{" "}
       <section className="section bg-sky-glow" id="council">

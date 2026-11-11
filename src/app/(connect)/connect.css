@@ -7,7 +7,7 @@
   --saffron: #F4B321; --saffron-700: #C98A00; --sky: #EAF3FC; --sky-2: #F5F9FE;
   --night: #0A1C48; --night-2: #0E2560; --text: #2E3B55; --muted: #5D6A82; --line: #DCE5F1;
   --f-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --f-script: "Caveat", "Segoe Script", cursive;
+  --f-script: var(--f-sans);
   --sh: 0 2px 6px rgba(15,62,158,.05), 0 24px 48px -24px rgba(15,62,158,.30);
 }
 *, *::before, *::after { box-sizing: border-box; }
