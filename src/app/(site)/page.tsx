@@ -90,9 +90,9 @@ export default function IndexPage() {
               Real world · Real learning · Real impact
             </p>{" "}
             <h1 className="display">
-              <span className="t1">Preparing learners</span>
-              <span className="t1">for the world</span>
-              <span className="t2">beyond the classroom.</span>
+              <span className="t1">We help institutions make</span>
+              <span className="t2">curriculum enrichment</span>
+              <span className="t1">calendar</span>
             </h1>{" "}
             <div className="btn-row">
               {" "}
@@ -1768,12 +1768,12 @@ export default function IndexPage() {
               <div className="sbb-photo">
                 <div
                   className="ph ph-fit "
-                  data-label="Students on a visit to ISRO"
+                  data-label="Students watching a robotics demonstration in an industry lab"
                   style={{ "--c": "#0F3E9E" } as React.CSSProperties}
                 >
                   <img
                     className="ph-fill"
-                    src="https://kashtieducare.com/images/gallery/isro-visit-2.jpeg"
+                    src="/images/hero/step-see.jpg"
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
@@ -1781,8 +1781,8 @@ export default function IndexPage() {
                   />
                   <img
                     className="ph-img"
-                    src="https://kashtieducare.com/images/gallery/isro-visit-2.jpeg"
-                    alt="Students on a visit to ISRO"
+                    src="/images/hero/step-see.jpg"
+                    alt="Students watching a robotics demonstration in an industry lab"
                     loading="lazy"
                     decoding="async"
                   />
@@ -1811,12 +1811,12 @@ export default function IndexPage() {
               <div className="sbb-photo">
                 <div
                   className="ph ph-fit "
-                  data-label="A leadership and mentorship session"
+                  data-label="Indian and Japanese students building a robot together"
                   style={{ "--c": "#0E8F86" } as React.CSSProperties}
                 >
                   <img
                     className="ph-fill"
-                    src="https://kashtieducare.com/images/gallery/leadership-session.jpeg"
+                    src="/images/hero/step-build.jpg"
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
@@ -1824,8 +1824,8 @@ export default function IndexPage() {
                   />
                   <img
                     className="ph-img"
-                    src="https://kashtieducare.com/images/gallery/leadership-session.jpeg"
-                    alt="A leadership and mentorship session"
+                    src="/images/hero/step-build.jpg"
+                    alt="Indian and Japanese students building a robot together"
                     loading="lazy"
                     decoding="async"
                   />
@@ -1855,12 +1855,12 @@ export default function IndexPage() {
               <div className="sbb-photo">
                 <div
                   className="ph ph-fit "
-                  data-label="A visit to O.P. Jindal Global University"
+                  data-label="Learners dressed for different careers"
                   style={{ "--c": "#C98A00" } as React.CSSProperties}
                 >
                   <img
                     className="ph-fill"
-                    src="https://kashtieducare.com/images/gallery/opj-visit-2.jpeg"
+                    src="/images/hero/step-become.jpg"
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
@@ -1868,8 +1868,8 @@ export default function IndexPage() {
                   />
                   <img
                     className="ph-img"
-                    src="https://kashtieducare.com/images/gallery/opj-visit-2.jpeg"
-                    alt="A visit to O.P. Jindal Global University"
+                    src="/images/hero/step-become.jpg"
+                    alt="Learners dressed for different careers"
                     loading="lazy"
                     decoding="async"
                   />

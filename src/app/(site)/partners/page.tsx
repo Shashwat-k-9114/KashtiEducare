@@ -318,7 +318,7 @@ export default function PartnersPage() {
             {" "}
             <div className="pp-intro">
               {" "}
-              <h3 className="h3">Institutions we've worked with</h3>{" "}
+              <h3 className="h3">Our engagements</h3>{" "}
               <span className="bar" aria-hidden="true" />{" "}
               <p>
                 Government bodies, universities and ecosystem partners who have

@@ -200,9 +200,7 @@ export function Footer() {
           <div className="footer-partners">
             {" "}
             <h4>
-              Institutions we've
-              <br />
-              worked with
+              Our engagements
             </h4>{" "}
             <div className="f-logos" data-render="footer-logos" />{" "}
           </div>{" "}

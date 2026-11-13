@@ -2163,3 +2163,11 @@ a.blog-card:hover, .blog-card:hover { translate: 0 -6px; box-shadow: var(--sh-2)
 .nep-tiles b { font-size: .95rem; font-weight: 800; color: var(--ink); }
 .nep-tiles span { font-size: .8rem; color: var(--muted); line-height: 1.35; }
 @media (max-width: 640px) { .nep-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Why Kashti: fill the gain-photo column; align NEP principle cards */
+.gain-photos .ph:last-child:nth-child(even) { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.principles { align-items: stretch; }
+.principle { display: flex; flex-direction: column; }
+.principle h3 { align-items: flex-start; min-height: 2.9em; }
+.principle h3 .icon { flex: none; margin-top: 2px; }
+@media (max-width: 560px) { .principle h3 { min-height: 0; } }

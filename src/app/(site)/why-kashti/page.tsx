@@ -221,6 +221,30 @@ export default function WhyKashtiPage() {
                   decoding="async"
                 />
               </div>{" "}
+              <div
+                className="ph ph-fit "
+                data-label="Kashti learning experience"
+                style={{ "--c": "#0F3E9E" } as React.CSSProperties}
+              >
+                <img className="ph-fill" src="/images/gallery/gain-4.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img className="ph-img" src="/images/gallery/gain-4.jpg" alt="Kashti learning experience" loading="lazy" decoding="async" />
+              </div>{" "}
+              <div
+                className="ph ph-fit "
+                data-label="Kashti on campus"
+                style={{ "--c": "#0F3E9E" } as React.CSSProperties}
+              >
+                <img className="ph-fill" src="/images/gallery/gain-5.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img className="ph-img" src="/images/gallery/gain-5.jpg" alt="Kashti on campus" loading="lazy" decoding="async" />
+              </div>{" "}
+              <div
+                className="ph ph-fit "
+                data-label="Kashti at O.P. Jindal Global University"
+                style={{ "--c": "#0F3E9E" } as React.CSSProperties}
+              >
+                <img className="ph-fill" src="/images/gallery/gain-6.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <img className="ph-img" src="/images/gallery/gain-6.jpg" alt="Kashti at O.P. Jindal Global University" loading="lazy" decoding="async" />
+              </div>{" "}
             </div>{" "}
             <div
               className="icon-cards cols-2"
@@ -299,24 +323,7 @@ export default function WhyKashtiPage() {
                 />
               </div>
             </figure>{" "}
-            <ul className="nep-tiles">
-              <li>
-                <b>Explore</b>
-                <span>Real-world contexts</span>
-              </li>
-              <li>
-                <b>Build</b>
-                <span>Skills &amp; solutions</span>
-              </li>
-              <li>
-                <b>Collaborate</b>
-                <span>Across domains</span>
-              </li>
-              <li>
-                <b>Become</b>
-                <span>Future-ready citizens</span>
-              </li>
-            </ul>{" "}
+            {" "}
             <div className="principles">
               {" "}
               <article className="principle">
@@ -639,7 +646,7 @@ export default function WhyKashtiPage() {
               {" "}
               <div className="pp-intro">
                 {" "}
-                <h3 className="h3">Institutions we've worked with</h3>{" "}
+                <h3 className="h3">Our engagements</h3>{" "}
                 <span className="bar" aria-hidden="true" />{" "}
                 <p>
                   Government bodies, universities and ecosystem partners who
